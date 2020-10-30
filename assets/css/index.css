@@ -1,0 +1,91 @@
+* {
+    font-family: 'Poiret One', cursive;
+    font-weight: 400;
+}
+
+.welcome {
+    font-size: 30px;
+    color: #2e254d;
+}
+
+.noted {
+    font-size: 20px;
+}
+
+.button-help {
+    background-color: #2e254d;
+    padding: 15px 75px 15px 75px;
+}
+
+.button-help:hover {
+    background-color: #2e254d;
+}
+
+.button-go {
+    background-color: #7451eb;
+    padding: 15px 50px 15px 50px;
+}
+
+.button-go:hover {
+    background-color: #6140ce;
+}
+
+.button-help,
+.button-go {
+    box-shadow: 0 5px 25px rgba(34, 60, 47, .2);
+    transition: 2 box-shadow;
+    border: none;
+    letter-spacing: 5px;
+}
+
+.button-help:hover,
+.button-go:hover {
+    box-shadow: 0 5px 25px rgba(34, 60, 47, .0);
+}
+
+#forPC {
+    display: none;
+}
+
+
+/*-------------- Medias Queries for Mobile --------------*/
+
+@media (max-width: 767.98px) {
+     .main {
+         display: none;
+     }
+
+     #forPC {
+         display: block;
+         font-size: 30px;
+         font-weight: 200;
+         text-align: center;
+     }
+}
+
+/*-------------- Medias Query for Tablettes --------------*/
+
+@media (max-width: 991.98px) {
+
+    .welcome {
+        font-size: 20px;
+    }
+
+    .noted {
+        font-size: 15px;
+    }
+
+    .button-help {
+        padding: 10px 50px 10px 50px;
+    }
+
+    .button-go {
+        padding: 10px 25px 10px 25px;
+    }
+
+    .button-help,
+    .button-go {
+        letter-spacing: 2px;
+    }
+
+}

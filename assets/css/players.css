@@ -1,0 +1,94 @@
+* {
+    font-family: 'Poiret One', cursive;
+    font-weight: 600;
+
+}
+
+.border-purlse {
+    border: 2px solid #7451eb;
+    padding: 2px;
+    border-radius: 100Px;
+    background-color: #ebe6ff;
+
+}
+
+.border-square {
+    padding: 5px;
+    border-radius: 10Px;
+    background-color: #ebe6ff;
+    cursor: pointer;
+}
+
+.make-border {
+    border: 2px solid #7451eb;
+}
+
+.make-border-red {
+    border: 0.2px solid rgb(223, 20, 20);
+}
+
+#cannotSameNames {
+    display: none;
+}
+
+input[type="text"] {
+    outline: none;
+    padding: 10px 10px 10px 15px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.2);
+    border: 0.2px solid #c0c0c0;
+    border-radius: 5px;
+}
+
+.make-shadow {
+    box-shadow: 0 5px 25px rgba(179, 180, 180, 0.2);
+    padding: 20px 20px 20px 200px;
+    border-radius: 10px;
+    border: 1px solid #f1f1f1; 
+}
+
+/*button*/
+.button-go {
+    background-color: #7451eb;
+    outline: none;
+    border: none;
+    padding: 15px 50px 15px 50px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.25);
+    transition: 2 box-shadow;
+}
+
+.button-go:hover {
+    background-color: #5c3dc2;
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
+}
+
+#forPC {
+    display: none;
+}
+
+
+/*-------------- Medias Queries for Mobile --------------*/
+
+@media (max-width: 767.98px) {
+    .main {
+        display: none;
+    }
+
+    #forPC {
+        display: block;
+        font-size: 30px;
+        font-weight: 200;
+        text-align: center;
+    }
+}
+
+/*-------------- Medias Query for Tablettes --------------*/
+
+@media (max-width: 991.98px) {
+
+    .make-shadow {
+
+        padding: 20px 2px 20px 70px;
+    }
+
+
+}

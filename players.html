@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-CombaGame </title>
+
+    <!--Tab icon-->
+    <link rel="icon" href="./assets/imgs/logo/logo_single02.png">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <!--FontAwesome for icons-->
+    <link rel="stylesheet" href="./assets/css/players.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+
+</head>
+</head>
+
+<body>
+
+    <!-- Main-->
+
+    <div class="container main">
+        <div class="row mt-3">
+            <div class="col-2"></div>
+            <div class="col-8 ">
+                <div class="row ">
+                    <!-- Player1 infos-->
+                    <div class="col-12 text-left">
+                        <img style="width:100px; height: 100px;" class="img-fluid mb-3"
+                            src="./assets/imgs/logo/logo.svg" alt="">
+                    </div>
+                    <div id="cannotSameNames" style="color: rgb(223, 20, 20);" class="col-12 mb-3">The two players can't have the same names.</div>
+                    <div class="col-12 make-shadow">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img id="playerOneChoosePicture" width="50" height="40" class="img-fluid border-purlse"
+                                            src="./assets/imgs/players/girl01.png" alt="">
+                                        <span class="ml-2" id="namePlayerOne">Playe1 by default</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <input id="playerOneNameInput" class="w-100 mt-3" type="text" placeholder="Enter player's one name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img id="playerOneSelectedPictureOne" width="50" height="40" class="img-fluid mt-2 border-square make-border"
+                                            src="./assets/imgs/players/girl01.png" alt="">
+                                    </div>
+                                    <div class="col-12">
+                                        <img id="playerOneSelectedPictureTwo" width="50" height="40"
+                                            class="img-fluid mt-2 border-square"
+                                            src="./assets/imgs/players/girl02.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Player infos-->
+                    <div class="col-12 mt-5 make-shadow">
+                         <div class="row">
+                             <div class="col-6">
+                                 <div class="row">
+                                     <div class="col-12">
+                                         <img id="playerTwoChoosePicture" width="50" height="40"
+                                             class="img-fluid border-purlse"
+                                             src="./assets/imgs/players/boy01.png" alt="">
+                                         <span class="ml-2" id="namePlayerTwo">Playe2 by default</span>
+                                     </div>
+                                     <div class="col-12">
+                                         <input id="playerTwoNameInput" class="w-100 mt-3" type="text" placeholder="Enter play's two name">
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-6">
+                                 <div class="row">
+                                     <div class="col-12">
+                                         <img id="playerTwoSelectedPictureOne" width="50" height="40"
+                                             class="img-fluid mt-2 border-square make-border"
+                                             src="./assets/imgs/players/boy01.png" alt="">
+                                     </div>
+                                     <div class="col-12">
+                                         <img id="playerTwoSelectedPictureTwo" width="50" height="40"
+                                             class="img-fluid mt-2 border-square"
+                                             src="./assets/imgs/players/boy02.png" alt="">
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="col-12 mt-5 text-right">
+                        <input id="button-go" type="button"
+                            class="btn btn-primary button-go mb-5" value="LET'S GO"></input>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <!-- Display if Mobile-->
+    <div class="container mt-5" id="forPC">
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid" src="./assets/imgs/logo/logo.svg" alt="logo">
+            </div>
+            <div class="col-12 tex-center mt-5">
+                <p>This <strong style="color: #7451eb;">Game</strong> is only available for <strong>PC</strong> and
+                    <strong>Tablettes</strong>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Loading JS files-->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"  src="./assets/js/players.js"></script>
+
+</html>

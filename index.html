@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-CombaGame </title>
+
+    <!--Tab icon-->
+    <link rel="icon" href="./assets/imgs/logo/logo_single02.png">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <!--FontAwesome for icons-->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+</head>
+
+<body>
+
+    <!-- Main-->
+
+    <div class="container main">
+        <div class="row mt-lg-5 mt-md-3">
+            <div class="col-3 mt-lg-5 mt-md-3">
+            </div>
+            <div class="col-6 mt-lg-5 mt-md-3">
+                <div class="row mt-lg-5 mt-md-3">
+                    <div class="col-12 mt-lg-5 mt-md-3">
+                        <img class="img-fluid text-center" style="width:90%; height:80%;" src="./assets/imgs/logo/logo.svg"
+                            alt="logo">
+                    </div>
+                    <div class="col-12 text-center">
+                        <p class="mt-lg-5 mt-md-3 welcome"> Welcome to <strong style="color: #7451eb;">Comba</strong>
+                            <strong>Game</strong>.</p>
+                        <p class="mb-5 noted"> Noted that this game is only available for <strong>PC</strong> and
+                            <strong>Tablettes</strong>.</p>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary button-help" data-toggle="modal"
+                                    data-target="#exampleModalLong">
+                                   HELP
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-12 text-left">
+                                                                <img style="width:40px; height: 50px;" class="img-fluid"
+                                                                    src="./assets/imgs/logo/logo_single01.png" alt="">
+                                                            </div>
+                                                            <div class="col-12 text-left mt-3">
+                                                                <strong>Help about Comba Game</strong></div>
+                                                        </div>
+                                                    </div>
+                                                </h5>
+                                                <button
+                                                    style="color: #7451eb;background-color: #dad2f7;border-radius: 0px 0px 0px 10px;"
+                                                    type="button" class="close"
+                                                    data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body p-5">
+
+                                                <div id="rules-section" class="modalContent">
+                                                    <div class="text-left">
+                                                        <div>
+                                                            <h2> <strong style="color: #7451eb;">Game help</strong>
+                                                            </h2>
+                                                        </div>
+                                                        <h4 class="mt-3"><strong>Movement rules</strong> </h4>
+                                                        <ul>
+                                                            <li>Movement takes place in turns.</li>
+                                                            <li>For each turn, player can move from 1 to 3 boxes
+                                                                (horizontally or vertically) before ending their
+                                                                turn.</li>
+                                                            <li>If player passes over a box containing a weapon, he
+                                                                leave his current weapon on site and replace it with
+                                                                the new one.</li>
+
+                                                            <li>If players cross over adjacent squares (horizontally
+                                                                or vertically), a battle begins.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <h4><strong>Battle rules</strong></h4>
+                                                        <ul>
+                                                            <li>Each player attacks in turn.</li>
+                                                            <li>Damage depends on the player's weapon.</li>
+                                                            <li>Player can choose to attack or defend against the
+                                                                next shot.</li>
+                                                            <li>If the player chooses to defend themselves, they
+                                                                sustain 50% less damage than normal.</li>
+                                                            <li>As soon as life points of a player (initially 100)
+                                                                falls to 0, game is over.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6"><a href="./players.html" id="button-go" type="button"
+                                    class="btn btn-primary button-go mb-5">LET'S GO</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Display if Mobile-->
+    <div class="container mt-5" id="forPC">
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid" src="./assets/imgs/logo/logo.svg" alt="logo">
+            </div>
+            <div class="col-12 tex-center mt-5">
+                <p>This <strong style="color: #7451eb;">Game</strong> is only available for <strong>PC</strong> and
+                    <strong>Tablettes</strong>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Loading JS files-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="./assets/js/index.js"></script>
+
+</html>

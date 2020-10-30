@@ -1,0 +1,132 @@
+* {
+    font-family: 'Poiret One', cursive;
+    font-weight: 600;
+    color: #2e254d;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#root {
+
+    top: 18px;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border: none;
+
+}
+
+.border-square {
+    padding: 5px;
+    border-radius: 10Px;
+    background-color: #ebe6ff;
+}
+
+.make-border {
+    border: 1px solid #b5a0fa;
+}
+
+#healhtOne,
+#healhtTwo,
+#damagePlayerOne,
+#damagePlayerTwo {
+    color: #7451eb;
+    font-weight: 600;
+}
+
+.make-shadow {
+    box-shadow: 0 5px 25px rgba(179, 180, 180, 0.2);
+    border: 1px solid #f1f1f1;
+}
+.info-damage{
+    border-radius:10px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+#box_0_0 {
+    border-radius: 10px 0px 0px 0px;
+}
+
+#box_0_9 {
+    border-radius: 0px 10px 0px 0px;
+}
+
+#box_9_0 {
+    border-radius: 0px 0px 0px 10px;
+}
+
+#box_9_9 {
+    border-radius: 0px 0px 10px 0px;
+}
+
+.box {
+
+    padding: 1.5% 1% 3.5% 3%;
+    text-align: center;
+    border: 0.1px solid #dddddd;
+    display: inline-block;
+    box-shadow: 0 5px 25px rgba(158, 158, 158, 0.15);
+    cursor: pointer;
+    color: transparent;
+
+}
+/*Players block*/
+#playerTwo,
+#playerOne {
+    opacity: 0;
+}
+
+/*Buttons properties*/
+.button-help {
+    background-color: #7451eb;
+    padding: 10px 5px 5px 10px;
+    border-radius: 100px 100px 0px 100px;
+}
+
+.button-help:hover {
+    background-color: #5f34eb;
+}
+
+.button-help {
+    box-shadow: 0 5px 25px rgba(34, 60, 47, .2);
+    transition: 2 box-shadow;
+    border: none;
+    letter-spacing: 5px;
+}
+
+.button-help:hover{
+    box-shadow: 0 5px 25px rgba(34, 60, 47, .0);
+}
+
+#forPC {
+    display: none;
+}
+
+.obstacles {
+    background-image: url('../../assets/imgs/obstacles/wall.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/*-------------- Medias Queries for Mobile --------------*/
+
+@media (max-width: 767.98px) {
+
+    .main {
+        display: none;
+    }
+
+    #forPC {
+        display: block;
+        font-size: 30px;
+        font-weight: 200;
+        text-align: center;
+    }
+
+}
