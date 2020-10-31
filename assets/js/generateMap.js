@@ -11,7 +11,7 @@ let playerTwoPicture;
 
 //players store
 let players = [{
-        name: "Carrot",
+        name: localStorage.playerOnePicture,
         position: {
             row: null,
             col: null,
@@ -19,7 +19,7 @@ let players = [{
         src: "./assets/imgs/players/" + localStorage.playerOnePicture + ".png",
     },
     {
-        name: "Orange",
+        name: localStorage.playerOnePicture,
         position: {
             row: null,
             col: null,
@@ -68,6 +68,20 @@ let weapons = [{
 
 ]
 
+//Store differents elements positions
+
+//store obstacles positions
+let  obstaclesPositions=[];
+
+//store weapons positions
+let  weaponsPositions=[];
+
+//store players positions
+let  PlayersPositions=[];
+
+//store possible positions
+let  possibleMovePositions=[];
+
 //Panel class building //chaque block doit avoir son click event
 class Panel {
     constructor() {
@@ -100,11 +114,16 @@ class Panel {
 
             if (!freeBoxObstacle) {
                 $('#box_' + row + '_' + column).addClass('obstacles');
+
+                //Add obstacle's positon on array
+                obstaclesPositions.push('box_' + row + '_' + column);
+
                 controleDisplayObstacles++;
             } else {
 
             }
         }
+        console.log(obstaclesPositions);
     }
 
     //Function call when want to display Weapons
@@ -125,11 +144,16 @@ class Panel {
                     "background-position": "center",
                 });
                 $('#box_' + row + '_' + column).addClass('weapon');
+
+                //Add weapon's positon on array
+                weaponsPositions.push('box_' + row + '_' + column);
+
                 controleDisplayWeapons++;
             } else {
 
             }
         }
+        console.log(weaponsPositions);
     }
 
     positonPlayers() {
@@ -152,11 +176,16 @@ class Panel {
                 $('#box_' + row + '_' + column).addClass('player');
                 $('#box_' + row + '_' + column).addClass('player' + controleDisplayPlayers);
 
+                //Add playe's positon on array
+                PlayersPositions.push('box_' + row + '_' + column);
+
                 controleDisplayPlayers++;
             } else {
 
             }
         }
+
+        console.log(PlayersPositions);
     }
 
 }
@@ -178,6 +207,9 @@ const colorMovementToRight=player=>{
             controlMakeDeplacement = 5;
         } else {
             $('#box_' + test[1] + '_' + (parseInt(test[2]) + controlMakeDeplacement)).css('background-color', '#f1ebff');
+
+            //add to possible move
+            possibleMovePositions.push('box_' + test[1] + '_' + (parseInt(test[2]) + controlMakeDeplacement));
             controlMakeDeplacement++;
 
         }
@@ -190,6 +222,8 @@ const colorDifferentMovements = player => {
       colorMovementToLeft(player);
       colorMovementToUp(player);
       colorMovementToDown(player);
+
+      console.log(possibleMovePositions);
 }
 
 //Color movement player to the left
@@ -208,6 +242,9 @@ const colorMovementToLeft = player => {
             controlMakeDeplacement = 5; //Break loop
         } else {
             $('#box_' + test[1] + '_' + (parseInt(test[2]) - controlMakeDeplacement)).css('background-color', '#f1ebff');
+
+            //add to possible move
+            possibleMovePositions.push('box_' + test[1] + '_' + (parseInt(test[2]) - controlMakeDeplacement));
             controlMakeDeplacement++;
 
         }
@@ -230,6 +267,9 @@ const colorMovementToUp = player => {
             controlMakeDeplacement = 5; //Break loop
         } else {
             $('#box_' + (parseInt(test[1]) - controlMakeDeplacement) + '_' + test[2]).css('background-color', '#f1ebff');
+
+            //add to possible move
+            possibleMovePositions.push('box_' + (parseInt(test[1]) - controlMakeDeplacement) + '_' + test[2]);
             controlMakeDeplacement++;
 
         }
@@ -252,6 +292,9 @@ const colorMovementToDown = player => {
             controlMakeDeplacement = 5;
         } else {
             $('#box_' + (parseInt(test[1]) + controlMakeDeplacement) + '_' + test[2]).css('background-color', '#f1ebff');
+
+            //add to possible move
+            possibleMovePositions.push('box_' + (parseInt(test[1]) + controlMakeDeplacement) + '_' + test[2]);
             controlMakeDeplacement++;
 
         }
