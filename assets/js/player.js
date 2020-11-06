@@ -1,8 +1,7 @@
 class Player {
-    constructor(name, positon, weapon, imageSrc) {
+    constructor(name, positon, imageSrc) {
         this.name = name;
         this.health = 100;
-        this.weapon = weapon;
         this.positon = positon;
         this.imageSrc = imageSrc;
     }

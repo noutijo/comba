@@ -7,6 +7,7 @@ class Grid {
         this.weapons = [];
         this.obstaclesPodition = [];
         this.players = [];
+        this.possibleDisplacement = [];
         this.buildGrid();
     }
 
@@ -42,50 +43,75 @@ class Grid {
             let x = this.generateRandomX();
             let y = this.generateRandomY();
 
-            if (this.isCellFree(x,y)) {
+            if (this.isCellFree(x, y)) {
                 $('#box_' + x + '_' + y).addClass('obstacle');
 
                 //Add weapon on array's Obstacles
                 this.obstaclesPodition.push(new Cell(x, y));
                 controleDisplayObstacle++;
-            } 
+            }
         }
         console.log(this.obstaclesPodition);
     }
 
     placeWeapons() {
-         let controleDisplayWeapon = 0;
+        let controleDisplayWeapon = 0;
 
-         while (controleDisplayWeapon < this.numberWeapons) {
-           let x = this.generateRandomX();
-           let y = this.generateRandomY();
+        while (controleDisplayWeapon < this.numberWeapons) {
+            let x = this.generateRandomX();
+            let y = this.generateRandomY();
 
-             if (this.isCellFree(x, y)) {
-                 $("#box_" + x + "_" + y).css({
-                     "background-image": "url(" + weaponsStore[controleDisplayWeapon].src + ")"
-                 });
-                 $('#box_' + x + '_' + y).addClass('weapon');
+            if (this.isCellFree(x, y)) {
+                $("#box_" + x + "_" + y).css({
+                    "background-image": "url(" + weaponsStore[controleDisplayWeapon].src + ")"
+                });
+                $('#box_' + x + '_' + y).addClass('weapon');
 
-                 //Add weapon on array's weapons
-                 this.weapons.push(new Weapon(weaponsStore[controleDisplayWeapon].name, weaponsStore[controleDisplayWeapon].domage, new Cell(x, y), weaponsStore[controleDisplayWeapon].src));
+                //Add weapon on array's weapons
+                this.weapons.push(new Weapon(weaponsStore[controleDisplayWeapon].name, weaponsStore[controleDisplayWeapon].domage, new Cell(x, y), weaponsStore[controleDisplayWeapon].src));
 
-                 controleDisplayWeapon++;
-             } 
-         }
-         console.log(this.weapons);
+                controleDisplayWeapon++;
+            }
+        }
+        console.log(this.weapons);
 
     }
 
-    placePlayers(){
-        
+    placePlayers() {
+        let controleDisplayPlayer = 0;
+
+        while (controleDisplayPlayer < this.numberPlayers) {
+            let x = this.generateRandomX();
+            let y = this.generateRandomY();
+
+            if (this.isCellFree(x, y) && this.isAroundCellFree((x - 1), y) && this.isAroundCellFree(x, (y + 1)) && this.isAroundCellFree((x + 1), y) && this.isAroundCellFree(x, (y - 1))) {
+                $("#box_" + x + "_" + y).css({
+                    "background-image": "url(" + playersStore[controleDisplayPlayer].src + ")"
+                });
+                $('#box_' + x + '_' + y).addClass('player');
+                $('#box_' + x + '_' + y).addClass('player' + controleDisplayPlayer);
+
+                //Add player infos on array's palyer
+                this.players.push(new Player(playersStore[controleDisplayPlayer].name, new Cell(x, y), playersStore[controleDisplayPlayer].src));
+                controleDisplayPlayer++;
+            }
+        }
+        console.log(this.players);
     }
 
     isCellFree(x, y) {
-        if (!$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('weapon') && !$('#box_' + x + '_' + y).hasClass('player')) {
+        if (!$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('weapon') && !$('#box_' + x + '_' + y).hasClass('player'))
             return true;
-        }else{
+        else
             return false;
-        }
     }
+
+    isAroundCellFree(x, y) {
+        if (!$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('player'))
+            return true;
+        else
+            return false;
+    }
+
 
 }

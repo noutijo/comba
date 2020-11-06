@@ -4,7 +4,7 @@ let playersStore = [{
         src: "./assets/imgs/players/" + localStorage.playerOnePicture + ".png",
     },
     {
-        name: localStorage.playerOneName,
+        name: localStorage.playerTwoName,
         src: "./assets/imgs/players/" + localStorage.playerTwoPicture + ".png",
     },
 ];

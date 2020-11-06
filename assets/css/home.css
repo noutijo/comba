@@ -42,8 +42,9 @@ body {
     box-shadow: 0 5px 25px rgba(179, 180, 180, 0.2);
     border: 1px solid #f1f1f1;
 }
-.info-damage{
-    border-radius:10px;
+
+.info-damage {
+    border-radius: 10px;
     font-size: 14px;
     padding: 10px;
 }
@@ -59,6 +60,7 @@ body {
     color: transparent;
 
 }
+
 /*Players block*/
 #playerTwo,
 #playerOne {
@@ -83,7 +85,7 @@ body {
     letter-spacing: 5px;
 }
 
-.button-help:hover{
+.button-help:hover {
     box-shadow: 0 5px 25px rgba(34, 60, 47, .0);
 }
 
@@ -91,11 +93,13 @@ body {
     display: none;
 }
 
-.obstacle,.weapon, .player{
- background-size: cover;
- background-repeat: no-repeat;
- background-position: center;
- background-size: 45px 50px;
+.obstacle,
+.weapon,
+.player {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 45px 50px;
 }
 
 .obstacle {
@@ -118,4 +122,15 @@ body {
         text-align: center;
     }
 
+}
+
+/*-------------- Medias Query for Tablettes --------------*/
+
+@media (max-width: 991.98px) {
+
+    .obstacle,
+    .weapon,
+    .player {
+        background-size: 25px 30px;
+    }
 }
