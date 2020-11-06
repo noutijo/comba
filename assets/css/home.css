@@ -48,22 +48,6 @@ body {
     padding: 10px;
 }
 
-#box_0_0 {
-    border-radius: 10px 0px 0px 0px;
-}
-
-#box_0_9 {
-    border-radius: 0px 10px 0px 0px;
-}
-
-#box_9_0 {
-    border-radius: 0px 0px 0px 10px;
-}
-
-#box_9_9 {
-    border-radius: 0px 0px 10px 0px;
-}
-
 .box {
 
     padding: 1.5% 1% 3.5% 3%;
@@ -107,10 +91,15 @@ body {
     display: none;
 }
 
-.obstacles {
+.obstacle,.weapon, .player{
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: 45px 50px;
+}
+
+.obstacle {
     background-image: url('../../assets/imgs/obstacles/wall.png');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 

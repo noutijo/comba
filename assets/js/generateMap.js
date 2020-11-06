@@ -11,7 +11,7 @@ let playerTwoPicture;
 
 //players store
 let players = [{
-        name: localStorage.playerOnePicture,
+        name: localStorage.playerOneName,
         position: {
             row: null,
             col: null,
@@ -19,7 +19,7 @@ let players = [{
         src: "./assets/imgs/players/" + localStorage.playerOnePicture + ".png",
     },
     {
-        name: localStorage.playerOnePicture,
+        name: localStorage.playerOneName,
         position: {
             row: null,
             col: null,
@@ -71,16 +71,16 @@ let weapons = [{
 //Store differents elements positions
 
 //store obstacles positions
-let  obstaclesPositions=[];
+let obstaclesPositions = [];
 
 //store weapons positions
-let  weaponsPositions=[];
+let weaponsPositions = [];
 
 //store players positions
-let  PlayersPositions=[];
+let PlayersPositions = [];
 
 //store possible positions
-let  possibleMovePositions=[];
+let possibleMovePositions = [];
 
 //Panel class building //chaque block doit avoir son click event
 class Panel {
@@ -94,7 +94,7 @@ class Panel {
     makeGrid() {
         for (let row = 0; row < 10; row++) {
             for (let column = 0; column < 10; column++) {
-                $('#root').append('<div id="box_' + row + '_' + column +'"class="box">' + row + ',' + column + ' </div>');
+                $('#root').append('<div id="box_' + row + '_' + column + '"class="box">' + row + ',' + column + ' </div>');
                 this.wholeBox.set(row, column);
             }
         }
@@ -192,7 +192,7 @@ class Panel {
 //Function called if window is refreshed
 
 //Color movement player to the Right
-const colorMovementToRight=player=>{
+const colorMovementToRight = player => {
     //Get players positions
     let test = $('.' + player).attr('id').split('_');
 
@@ -218,12 +218,12 @@ const colorMovementToRight=player=>{
 
 //Color different movement
 const colorDifferentMovements = player => {
-      colorMovementToRight(player);
-      colorMovementToLeft(player);
-      colorMovementToUp(player);
-      colorMovementToDown(player);
+    colorMovementToRight(player);
+    colorMovementToLeft(player);
+    colorMovementToUp(player);
+    colorMovementToDown(player);
 
-      console.log(possibleMovePositions);
+    console.log(possibleMovePositions);
 }
 
 //Color movement player to the left
@@ -302,8 +302,8 @@ const colorMovementToDown = player => {
 }
 
 //Function use to launch to control movement
- $('#root').on('click',(event)=>{
-         alert(event.target.id);
+$('#root').on('click', (event) => {
+    alert(event.target.id);
 })
 
 //Launch function after page loading

@@ -73,6 +73,7 @@ $('#button-go').on('click', () => {
 
         localStorage.playerTwoName = playerTwoName;
         localStorage.playerTwoPicture = playerTwoPicture;
+        
         window.location.href = "./home.html";
 
         //Play audio before redirection
