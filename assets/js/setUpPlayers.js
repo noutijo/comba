@@ -63,21 +63,28 @@ $('#playerTwoNameInput').keyup(() => {
 
 //Validated players informations
 $('#button-go').on('click', () => {
-    if (playerOneName.toLowerCase() === playerTwoName.toLowerCase()) {
+    if (playerOneName.toLowerCase().trim() === playerTwoName.toLowerCase().trim()) {
+
+        playBitButton();
         $('#cannotSameNames').show();
+
     } else {
-        
+
+        playBitButton();
+
         localStorage.playerOneName = playerOneName;
         localStorage.playerOnePicture = playerOnePicture;
         localStorage.playerOnePictureDisplay = playerOnePicture;
 
         localStorage.playerTwoName = playerTwoName;
         localStorage.playerTwoPicture = playerTwoPicture;
-        
-        window.location.href = "./home.html";
 
-        //Play audio before redirection
-        let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
-        audio.autoplay = true;
+        window.location.href = "./home.html";
     }
 });
+
+//Play audio when plar click on help boutton
+const playBitButton = () => {
+    let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
+    audio.autoplay = true;
+}

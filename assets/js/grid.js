@@ -2,10 +2,12 @@ class Grid {
     constructor(rows, columns) {
         this.rows = rows;
         this.columns = columns;
+        this.numberObstacles = 7;
         this.numberWeapons = 4;
         this.numberPlayers = 2;
+        this.occupiedCells = [];
         this.weapons = [];
-        this.obstaclesPodition = [];
+        this.obstaclesPosition = [];
         this.players = [];
         this.possibleDisplacement = [];
         this.buildGrid();
@@ -38,83 +40,76 @@ class Grid {
         $('#box_' + (this.rows - 1) + '_' + (this.columns - 1)).css('border-radius', '0px 0px 10px 0px');
     }
 
-    placeObstacles(numberOfObstacles) {
-        let controleDisplayObstacle = 0;
+    placeObstacles() {
 
-        while (controleDisplayObstacle < numberOfObstacles) {
-            let x = this.generateRandomX();
-            let y = this.generateRandomY();
+        for (let i = 0; i < this.numberObstacles; i++) {
+            let cell = this.findFreeCell();
 
-            if (this.isCellFree(x, y)) {
-                $('#box_' + x + '_' + y).addClass('obstacle');
-
-                //Add weapon on array's Obstacles
-                this.obstaclesPodition.push(new Cell(x, y));
-                controleDisplayObstacle++;
-            }
+            //Add weapon on array's Obstacles
+            this.obstaclesPosition.push(cell);
+            cell.makeObstacle();
         }
-        console.log(this.obstaclesPodition);
+        console.log(this.obstaclesPosition);
     }
 
     placeWeapons() {
-        let controleDisplayWeapon = 0;
 
-        while (controleDisplayWeapon < this.numberWeapons) {
-            let x = this.generateRandomX();
-            let y = this.generateRandomY();
+        for (let i = 0; i < this.numberWeapons; i++) {
+            let cell = this.findFreeCell();
 
-            if (this.isCellFree(x, y)) {
-                $("#box_" + x + "_" + y).css({
-                    "background-image": "url(" + weaponsStore[controleDisplayWeapon].src + ")"
-                });
-                $('#box_' + x + '_' + y).addClass('weapon');
-
-                //Add weapon on array's weapons
-                this.weapons.push(new Weapon(weaponsStore[controleDisplayWeapon].name, weaponsStore[controleDisplayWeapon].domage, new Cell(x, y), weaponsStore[controleDisplayWeapon].src));
-
-                controleDisplayWeapon++;
-            }
+            //Add weapon on array's weapons
+            this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
+            cell.makeWeapon(weaponsStore[i].src);
         }
         console.log(this.weapons);
-
     }
 
     placePlayers() {
 
-        let controleDisplayPlayer = 0;
+        for (let n = 0; n < this.numberPlayers; n++) {
+            let cell = this.findFreeCellForPlayer();
 
-        while (controleDisplayPlayer < this.numberPlayers) {
-            let x = this.generateRandomX();
-            let y = this.generateRandomY();
-
-            if (this.isCellFree(x, y) && this.isAroundCellFree((x - 1), y) && this.isAroundCellFree(x, (y + 1)) && this.isAroundCellFree((x + 1), y) && this.isAroundCellFree(x, (y - 1))) {
-                $("#box_" + x + "_" + y).css({
-                    "background-image": "url(" + playersStore[controleDisplayPlayer].src + ")"
-                });
-                $('#box_' + x + '_' + y).addClass('player');
-                $('#box_' + x + '_' + y).addClass('player' + controleDisplayPlayer);
-
-                //Add player infos on array's palyer
-                this.players.push(new Player(playersStore[controleDisplayPlayer].name, new Cell(x, y), playersStore[controleDisplayPlayer].src));
-                controleDisplayPlayer++;
-            }
+            //Add player infos on array's palyer
+            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src));
+            cell.makePlayer(n, playersStore[n].src);
         }
         console.log(this.players);
         this.defineDeplacement("player0");
     }
 
-    isCellFree(x, y) {
-        if (!$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('weapon') && !$('#box_' + x + '_' + y).hasClass('player'))
-            return true;
-        else
-            return false;
+    findFreeCell() {
+        let cell = this.getRandomCell();
+
+        if (this.isCellFree(cell)) {
+            this.occupiedCells.push(cell);
+            return cell;
+        }
+        return this.findFreeCell();
     }
 
-    isAroundCellFree(x, y) {
-        if (!$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('player'))
-            return true;
-        else
-            return false;
+    findFreeCellForPlayer() {
+        let cell = this.getRandomCell();
+
+        if (this.isCellFree(cell) && this.isAroundCellFree((cell.x - 1), cell.y) && this.isAroundCellFree(cell.x, (cell.y + 1)) && this.isAroundCellFree((cell.x + 1), cell.y) && this.isAroundCellFree(cell.x, (cell.y - 1))) {
+
+            this.occupiedCells.push(cell);
+            return cell;
+        }
+        return this.findFreeCellForPlayer();
+    }
+
+    getRandomCell(){
+        return new Cell(this.generateRandomX(), this.generateRandomY());
+    }
+
+    isCellFree(cell) {
+        return this.occupiedCells.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
+    }
+
+    isAroundCellFree(x,y) {
+        return !$('#box_' + x + '_' + y).hasClass('obstacle') && !$('#box_' + x + '_' + y).hasClass('player');
     }
 
     defineDeplacement(player) {
