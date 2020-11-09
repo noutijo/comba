@@ -21,7 +21,7 @@
      let playerTwoPicture = localStorage.playerTwoPicture;
 
      //Place randomly default informations on the grid
-     let grid = new Grid(10,11);
+     let grid = new Grid(10, 11);
      grid.placeObstacles();
      grid.placeWeapons();
      grid.placePlayers();
@@ -42,21 +42,7 @@
          opacity: 1
      }, 2000);
 
+     playBackgroundSong();
  });
 
 
- //This function is called went the user click on help button
- $('.button-help').on('click', () => {
-     playBitButton();
- });
-
- //This function is called went the user click on close button
- $('.close').on('click', () => {
-     playBitButton();
- });
- 
- //Play audio when plar click on help boutton
- const playBitButton = () => {
-     let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
-     audio.autoplay = true;
- }
