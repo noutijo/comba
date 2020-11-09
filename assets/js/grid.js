@@ -14,12 +14,7 @@ class Grid {
         this.bringRadiusEffect();
     }
 
-    generateRandomX() {
-        return Math.floor(Math.random() * this.rows);
-    }
-    generateRandomY() {
-        return Math.floor(Math.random() * this.columns);
-    }
+    
 
     buildGrid() {
         for (let x = 0; x < this.rows; x++) {
@@ -38,6 +33,13 @@ class Grid {
         $('#box_0_' + (this.columns - 1)).css('border-radius', '0px 10px 0px 0px');
         $('#box_' + (this.rows - 1) + '_0').css('border-radius', '0px 0px 0px 10px');
         $('#box_' + (this.rows - 1) + '_' + (this.columns - 1)).css('border-radius', '0px 0px 10px 0px');
+    }
+
+    generateRandomX() {
+        return Math.floor(Math.random() * this.rows);
+    }
+    generateRandomY() {
+        return Math.floor(Math.random() * this.columns);
     }
 
     placeObstacles() {
@@ -205,6 +207,19 @@ class Grid {
         if (value < this.rows)
             return true
         else return false
+    }
+
+    movePlayer(cell){
+        if (this.isPossibleDeplacement(cell)){
+            playDanger();
+        }else
+        alert('good^');
+    }
+
+    isPossibleDeplacement(cell){
+        return this.possibleDisplacement.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
     }
 
 }

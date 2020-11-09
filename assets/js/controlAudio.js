@@ -37,3 +37,9 @@ const playBitButton = () => {
     let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
     audio.autoplay = true;
 };
+
+//Play audio danger when click on cell that play can't move on
+const playDanger = () => {
+    let audio = new Audio('./assets/audios/danger.mp3');
+    audio.autoplay = true;
+};

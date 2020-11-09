@@ -1,6 +1,12 @@
+ 
+ //Grid objetct
+ let grid;
+ 
  //Function use to launch to control movement
  $('#root').on('click', (event) => {
-     alert(event.target.id);
+     let player = (event.target.id).split('_');
+
+     grid.movePlayer(new Cell(parseInt(player[1]), parseInt(player[2])));
  })
  //Control the weapns infos displayment
  window.addEventListener('scroll', function () {
@@ -21,7 +27,7 @@
      let playerTwoPicture = localStorage.playerTwoPicture;
 
      //Place randomly default informations on the grid
-     let grid = new Grid(10, 11);
+     grid = new Grid(10, 11);
      grid.placeObstacles();
      grid.placeWeapons();
      grid.placePlayers();
@@ -44,5 +50,3 @@
 
      playBackgroundSong();
  });
-
-
