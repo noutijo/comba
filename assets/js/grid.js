@@ -186,27 +186,19 @@ class Grid {
     }
 
     isColorable(x, y) {
-        if (!$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player'))
-            return true
-        else return false
+        return! $('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
     }
 
     isPositiveValue(value) {
-        if ((value >= 0 && value < this.columns) || (value >= 0 && value < this.rows))
-            return true
-        else return false
+        return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
     }
 
     isLessThanNumberColumns(value) {
-        if (value < this.columns)
-            return true
-        else return false
+        return (value < this.columns)
     }
 
     isLessThanNumberRows(value) {
-        if (value < this.rows)
-            return true
-        else return false
+        return (value < this.rows)
     }
 
     movePlayer(cell){
