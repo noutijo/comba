@@ -202,13 +202,13 @@ class Grid {
     }
 
     movePlayer(cell){
-        if (this.isPossibleDeplacement(cell)){
+        if (this.isNoPossibleDeplacement(cell)){
             playDanger();
         }else
         alert('good^');
     }
 
-    isPossibleDeplacement(cell){
+    isNoPossibleDeplacement(cell){
         return this.possibleDisplacement.filter((item) => {
             return item.x === cell.x && item.y === cell.y;
         }).length === 0;
