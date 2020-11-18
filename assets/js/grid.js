@@ -176,15 +176,17 @@ class Grid {
                 control = 5; //Break loop
         }
 
-        console.log(this.possibleDisplacement)
+        console.log(this.possibleDisplacement);
     }
 
     isMovable(x, y) {
         return !$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
     }
-    colorCell(x,y){
-         $('#box_' + x + '_' +y).css('background-color', '#f1ebff');
+
+    colorCell(x, y) {
+        $('#box_' + x + '_' + y).css('background-color', '#f1ebff');
     }
+
     isPositiveValue(value) {
         return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
     }
