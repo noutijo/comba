@@ -160,7 +160,7 @@ class Grid {
 
     isCellHasPlayer(cell) {
         return this.players.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
+            return item.position.x === cell.x && item.position.y === cell.y;
         }).length === 0;
     }
 
