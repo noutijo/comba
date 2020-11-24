@@ -68,12 +68,6 @@ body {
 }
 
 /*Buttons properties*/
-.button-help {
-    background-color: #7451eb;
-    padding: 10px 5px 5px 10px;
-    border-radius: 100px 100px 0px 100px;
-}
-
 .button-help:hover {
     background-color: #5f34eb;
 }
@@ -82,11 +76,28 @@ body {
     box-shadow: 0 5px 25px rgba(34, 60, 47, .2);
     transition: 2 box-shadow;
     border: none;
+    outline: none;
     letter-spacing: 5px;
+    background-color: #7451eb;
+    padding: 10px 5px 5px 10px;
+    border-radius: 100px 100px 0px 100px;
 }
 
-.button-help:hover {
-    box-shadow: 0 5px 25px rgba(34, 60, 47, .0);
+.button-audio {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 5px 25px rgba(34, 60, 47, .2);
+    transition: 2 box-shadow;
+    border: none;
+    box-sizing: border-box;
+    letter-spacing: 5px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 100px 100px 100px 100px;
+}
+
+.button-help:hover,
+.button-audio:hover {
+    box-shadow: 0 10px 25px rgba(34, 60, 47, .09);
 }
 
 #forPC {

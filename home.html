@@ -73,77 +73,87 @@
                         </div>
                     </div>
                     <div class="col-3 mt-5">
-
-                        <!-- Button trigger modal -->
-                        <button  type="button" class="btn btn-primary button-help damageInfos" data-toggle="modal"
-                            data-target="#exampleModalLong">
-                            <i class="fa fa-question" style="color:white; font-size:24px;"></i>
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-12 text-left">
-                                                        <img style="width:40px; height: 50px;" class="img-fluid"
-                                                            src="./assets/imgs/logo/logo_single01.png" alt="">
+                        <div class="row">
+                            <div class="col-2">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary button-help damageInfos" data-toggle="modal"
+                                    data-target="#exampleModalLong">
+                                    <i class="fa fa-question" style="color:white; font-size:24px;"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-12 text-left">
+                                                                <img style="width:40px; height: 50px;" class="img-fluid"
+                                                                    src="./assets/imgs/logo/logo_single01.png" alt="">
+                                                            </div>
+                                                            <div class="col-12 text-left mt-3">
+                                                                <strong>Help about Comba Game</strong></div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 text-left mt-3">
-                                                        <strong>Help about Comba Game</strong></div>
-                                                </div>
+                                                </h5>
+                                                <button style="color: #7451eb;background-color: #dad2f7;border-radius: 0px 0px 0px 10px;" type="button"
+                                                    class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
-                                        </h5>
-                                        <button
-                                            style="color: #7451eb;background-color: #dad2f7;border-radius: 0px 0px 0px 10px;"
-                                            type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body p-5">
-
-                                        <div id="rules-section" class="modalContent">
-                                            <div class="text-left">
-                                                <div>
-                                                    <h2> <strong style="color: #7451eb;">Game help</strong>
-                                                    </h2>
+                                            <div class="modal-body p-5">
+                                
+                                                <div id="rules-section" class="modalContent">
+                                                    <div class="text-left">
+                                                        <div>
+                                                            <h2> <strong style="color: #7451eb;">Game help</strong>
+                                                            </h2>
+                                                        </div>
+                                                        <h4 class="mt-3"><strong>Movement rules</strong> </h4>
+                                                        <ul>
+                                                            <li>Movement takes place in turns.</li>
+                                                            <li>For each turn, player can move from 1 to 3 boxes
+                                                                (horizontally or vertically) before ending their
+                                                                turn.</li>
+                                                            <li>If player passes over a box containing a weapon, he
+                                                                leave his current weapon on site and replace it with
+                                                                the new one.</li>
+                                
+                                                            <li>If players cross over adjacent squares (horizontally
+                                                                or vertically), a battle begins.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="text-left">
+                                                        <h4><strong>Battle rules</strong></h4>
+                                                        <ul>
+                                                            <li>Each player attacks in turn.</li>
+                                                            <li>Damage depends on the player's weapon.</li>
+                                                            <li>Player can choose to attack or defend against the
+                                                                next shot.</li>
+                                                            <li>If the player chooses to defend themselves, they
+                                                                sustain 50% less damage than normal.</li>
+                                                            <li>As soon as life points of a player (initially 100)
+                                                                falls to 0, game is over.</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                                <h4 class="mt-3"><strong>Movement rules</strong> </h4>
-                                                <ul>
-                                                    <li>Movement takes place in turns.</li>
-                                                    <li>For each turn, player can move from 1 to 3 boxes
-                                                        (horizontally or vertically) before ending their
-                                                        turn.</li>
-                                                    <li>If player passes over a box containing a weapon, he
-                                                        leave his current weapon on site and replace it with
-                                                        the new one.</li>
-
-                                                    <li>If players cross over adjacent squares (horizontally
-                                                        or vertically), a battle begins.</li>
-                                                </ul>
-                                            </div>
-                                            <div class="text-left">
-                                                <h4><strong>Battle rules</strong></h4>
-                                                <ul>
-                                                    <li>Each player attacks in turn.</li>
-                                                    <li>Damage depends on the player's weapon.</li>
-                                                    <li>Player can choose to attack or defend against the
-                                                        next shot.</li>
-                                                    <li>If the player chooses to defend themselves, they
-                                                        sustain 50% less damage than normal.</li>
-                                                    <li>As soon as life points of a player (initially 100)
-                                                        falls to 0, game is over.</li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-3 damageInfos text-center">
+                                <div class="button-audio">
+                                    <i class="fa fa-volume-up bgAudio" style="color:#2e254d; font-size:16px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
                         </div>
+                       
 
                     </div>
                 </div>
@@ -239,10 +249,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="./assets/js/playStore.js"></script>
-<script src="./assets/js/cell.js"></script>
-<script src="./assets/js/grid.js"></script>
-<script src="./assets/js/player.js"></script>
-<script src="./assets/js/weapon.js"></script>
+<script src="./assets/js/Cell.js"></script>
+<script src="./assets/js/controlAudio.js"></script>
+<script src="./assets/js/Grid.js"></script>
+<script src="./assets/js/Player.js"></script>
+<script src="./assets/js/Weapon.js"></script>
 <script src="./assets/js/main.js"></script>
 
 </html>
