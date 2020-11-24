@@ -146,7 +146,22 @@ class Grid {
     }
 
     isMovable(x, y) {
-        return !$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
+
+        let cell = new Cell(x, y);
+        return (this.isCellHasObstacle(cell) && this.isCellHasPlayer(cell));
+        //return !$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
+    }
+
+    isCellHasObstacle(cell) {
+        return this.obstaclesPosition.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
+    }
+
+    isCellHasPlayer(cell) {
+        return this.players.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
     }
 
     isPositiveValue(value) {
