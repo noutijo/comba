@@ -30,11 +30,133 @@ class Grid {
         $('#box_' + (this.rows - 1) + '_' + (this.columns - 1)).css('border-radius', '0px 0px 10px 0px');
     }
 
+    colorTop(positionXY) {
+        let control = 1;
+
+        while (control < 4) {
+            if (this.isMovable((parseInt(positionXY[1]) - control), parseInt(positionXY[2])) && this.isPositiveValue((parseInt(positionXY[1]) - control))) {
+                this.colorCell((parseInt(positionXY[1]) - control), parseInt(positionXY[2]));
+
+                //Save to possible deplecement 
+                this.possibleDisplacement.push(new Cell((parseInt(positionXY[1]) - control), parseInt(positionXY[2])));
+                control++;
+            } else
+                control = 5; //Break loop
+        }
+
+    }
+
+    colorRight(positionXY) {
+        let control = 1;
+
+        while (control < 4) {
+            if (this.isMovable(parseInt(positionXY[1]), (parseInt(positionXY[2]) + control)) && (parseInt(positionXY[2]) + control) < this.columns) {
+                this.colorCell(parseInt(positionXY[1]), (parseInt(positionXY[2]) + control));
+
+                //Save to possible deplecement 
+                this.possibleDisplacement.push(new Cell(parseInt(parseInt(positionXY[1])), (parseInt(positionXY[2]) + control)));
+                control++;
+            } else
+                control = 5; //Break loop
+        }
+    }
+
+    colorBottom(positionXY) {
+        let control = 1;
+
+        while (control < 4) {
+            if (this.isMovable((parseInt(positionXY[1]) + control), parseInt(positionXY[2])) && (parseInt(positionXY[1]) + control) < this.rows) {
+                this.colorCell((parseInt(positionXY[1]) + control), parseInt(positionXY[2]));
+
+                //Save to possible deplecement 
+                this.possibleDisplacement.push(new Cell((parseInt(positionXY[1]) + control), parseInt(positionXY[2])));
+                control++;
+            } else
+                control = 5; //Break loop
+        }
+    }
+
+    colorLeft(positionXY) {
+        let control = 1;
+
+        while (control < 4) {
+            if (this.isMovable(parseInt(positionXY[1]), (parseInt(positionXY[2]) - control)) && this.isPositiveValue((parseInt(positionXY[2]) - control))) {
+                this.colorCell(parseInt(positionXY[1]), (parseInt(positionXY[2]) - control))
+
+                //Save to possible deplecement 
+                this.possibleDisplacement.push(new Cell(parseInt(parseInt(positionXY[1])), (parseInt(positionXY[2]) - control)));
+                control++;
+            } else
+                control = 5; //Break loop
+        }
+
+        console.log(this.possibleDisplacement);
+    }
+
+    colorCell(x, y) {
+        $('#box_' + x + '_' + y).css('background-color', '#f1ebff');
+    }
+
+    defineDeplacement(player) {
+        this.colorTop($('.' + player).attr('id').split('_'));
+        this.colorRight($('.' + player).attr('id').split('_'));
+        this.colorBottom($('.' + player).attr('id').split('_'));
+        this.colorLeft($('.' + player).attr('id').split('_'));
+    }
+
+    findFreeCell() {
+        let cell = this.getRandomCell();
+
+        if (this.isCellFree(cell)) {
+            this.occupiedCells.push(cell);
+            return cell;
+        }
+        return this.findFreeCell();
+    }
+
+    findFreeCellForPlayer() {
+        let cell = this.getRandomCell();
+
+        if (this.isCellFree(cell) && this.isAroundCellFree(cell.up) && this.isAroundCellFree(cell.right) && this.isAroundCellFree(cell.down) && this.isAroundCellFree(cell.left)) {
+
+            return cell;
+        }
+        return this.findFreeCellForPlayer();
+    }
+
     generateRandomX() {
         return Math.floor(Math.random() * this.rows);
     }
     generateRandomY() {
         return Math.floor(Math.random() * this.columns);
+    }
+
+    getRandomCell() {
+        return new Cell(this.generateRandomX(), this.generateRandomY());
+    }
+
+    isCellFree(cell) {
+        return this.occupiedCells.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
+    }
+
+    isAroundCellFree(cell) {
+        return !$('#box_' + cell.x + '_' + cell.y).hasClass('obstacle') && !$('#box_' + cell.x + '_' + cell.y).hasClass('player');
+    }
+
+    isMovable(x, y) {
+        return !$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
+    }
+
+    isPositiveValue(value) {
+        return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
+    }
+
+    isNoPossibleDeplacement(cell) {
+        return this.possibleDisplacement.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
     }
 
     placeObstacles(numberObstacles = 7) {
@@ -74,134 +196,11 @@ class Grid {
         this.defineDeplacement("player0");
     }
 
-    findFreeCell() {
-        let cell = this.getRandomCell();
-
-        if (this.isCellFree(cell)) {
-            this.occupiedCells.push(cell);
-            return cell;
-        }
-        return this.findFreeCell();
-    }
-
-    findFreeCellForPlayer() {
-        let cell = this.getRandomCell();
-
-        if (this.isCellFree(cell) && this.isAroundCellFree(cell.up) && this.isAroundCellFree(cell.right) && this.isAroundCellFree(cell.down) && this.isAroundCellFree(cell.left)) {
-
-            return cell;
-        }
-        return this.findFreeCellForPlayer();
-    }
-
-    getRandomCell() {
-        return new Cell(this.generateRandomX(), this.generateRandomY());
-    }
-
-    isCellFree(cell) {
-        return this.occupiedCells.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length === 0;
-    }
-
-    isAroundCellFree(cell) {
-        return !$('#box_' + cell.x + '_' + cell.y).hasClass('obstacle') && !$('#box_' + cell.x + '_' + cell.y).hasClass('player');
-    }
-
-    defineDeplacement(player) {
-        this.colorTop($('.' + player).attr('id').split('_'));
-        this.colorRight($('.' + player).attr('id').split('_'));
-        this.colorBottom($('.' + player).attr('id').split('_'));
-        this.colorLeft($('.' + player).attr('id').split('_'));
-    }
-
-    colorTop(positionXY) {
-        let control = 1;
-
-        while (control < 4) {
-            if (this.isMovable((parseInt(positionXY[1]) - control), parseInt(positionXY[2])) && this.isPositiveValue((parseInt(positionXY[1]) - control))) {
-                this.colorCell((parseInt(positionXY[1]) - control), parseInt(positionXY[2]));
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(new Cell((parseInt(positionXY[1]) - control), parseInt(positionXY[2])));
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-
-    }
-
-    colorRight(positionXY) {
-        let control = 1;
-
-        while (control < 4) {
-            if (this.isMovable(parseInt(positionXY[1]), (parseInt(positionXY[2]) + control)) && (parseInt(positionXY[2]) + control) < this.columns) {
-                this.colorCell(parseInt(positionXY[1]), (parseInt(positionXY[2]) + control));
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(new Cell(parseInt(parseInt(positionXY[1])), (parseInt(positionXY[2]) + control)));
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-    }
-
-
-    colorBottom(positionXY) {
-        let control = 1;
-
-        while (control < 4) {
-            if (this.isMovable((parseInt(positionXY[1]) + control), parseInt(positionXY[2])) && (parseInt(positionXY[1]) + control) < this.rows) {
-                this.colorCell((parseInt(positionXY[1]) + control), parseInt(positionXY[2]));
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(new Cell((parseInt(positionXY[1]) + control), parseInt(positionXY[2])));
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-    }
-
-    colorLeft(positionXY) {
-        let control = 1;
-
-        while (control < 4) {
-            if (this.isMovable(parseInt(positionXY[1]), (parseInt(positionXY[2]) - control)) && this.isPositiveValue((parseInt(positionXY[2]) - control))) {
-                this.colorCell(parseInt(positionXY[1]), (parseInt(positionXY[2]) - control))
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(new Cell(parseInt(parseInt(positionXY[1])), (parseInt(positionXY[2]) - control)));
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-
-        console.log(this.possibleDisplacement);
-    }
-
-    isMovable(x, y) {
-        return !$('#box_' + x + "_" + y).hasClass('obstacle') && !$('#box_' + x + "_" + y).hasClass('player')
-    }
-
-    colorCell(x, y) {
-        $('#box_' + x + '_' + y).css('background-color', '#f1ebff');
-    }
-
-    isPositiveValue(value) {
-        return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
-    }
-
     movePlayer(cell) {
         if (this.isNoPossibleDeplacement(cell)) {
             playDanger();
         } else
             alert('good^');
-    }
-
-    isNoPossibleDeplacement(cell) {
-        return this.possibleDisplacement.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length === 0;
     }
 
 }
