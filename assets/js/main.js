@@ -8,23 +8,9 @@
 
      grid.movePlayer(new Cell(parseInt(player[1]), parseInt(player[2])));
  })
- //Control the weapns infos displayment
- window.addEventListener('scroll', function () {
-     if (window.pageYOffset >= 15)
-         $('.damageInfos').fadeOut(500);
-     if (window.pageYOffset < 15)
-         $('.damageInfos').fadeIn(500);
- });
-
-
+ 
  //Launch function after page loading
  $(document).ready(function () {
-
-     //Init infos Players coming from players set up
-     let playerOneName = localStorage.playerOneName;
-     let playerOnePicture = localStorage.playerOnePicture;
-     let playerTwoName = localStorage.playerTwoName;
-     let playerTwoPicture = localStorage.playerTwoPicture;
 
      //Place randomly default informations on the grid
      grid = new Grid(10, 11);
@@ -33,12 +19,12 @@
      grid.placePlayers();
 
      //Init player one infos
-     $('#playerOneName').text(playerOneName);
-     $('#playerOnePicture').attr('src', './assets/imgs/players/' + playerOnePicture + '.png')
+     $('#playerOneName').text(localStorage.playerOneName);
+     $('#playerOnePicture').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png')
 
      //Init player two infos
-     $('#playerTwoName').text(playerTwoName);
-     $('#playerTwoPicture').attr('src', './assets/imgs/players/' + playerTwoPicture + '.png')
+     $('#playerTwoName').text(localStorage.playerTwoName);
+     $('#playerTwoPicture').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
 
      //fadeIn on player's blocks when page is reading
      $('#playerTwo').animate({
