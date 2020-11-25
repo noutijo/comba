@@ -8,7 +8,6 @@ class Grid {
         this.players = [];
         this.possibleDisplacement = [];
         this.buildGrid();
-        this.bringRadiusEffect();
     }
 
     buildGrid() {
@@ -21,9 +20,7 @@ class Grid {
         //Initialized boxes sizes
         $('.box').css('width', (100 / this.columns) + '%');
         $('.box').css('height', (100 / this.rows) + '%');
-    }
 
-    bringRadiusEffect() {
         $('#box_0_0').css('border-radius', '10px 0px 0px 0px');
         $('#box_0_' + (this.columns - 1)).css('border-radius', '0px 10px 0px 0px');
         $('#box_' + (this.rows - 1) + '_0').css('border-radius', '0px 0px 0px 10px');
@@ -124,15 +121,10 @@ class Grid {
         return this.findFreeCellForPlayer();
     }
 
-    generateRandomX() {
-        return Math.floor(Math.random() * this.rows);
-    }
-    generateRandomY() {
-        return Math.floor(Math.random() * this.columns);
-    }
-
     getRandomCell() {
-        return new Cell(this.generateRandomX(), this.generateRandomY());
+        let x = Math.floor(Math.random() * this.rows);
+        let y = Math.floor(Math.random() * this.columns);
+        return new Cell(x, y);
     }
 
     isCellFree(cell) {

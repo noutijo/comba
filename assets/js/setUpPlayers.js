@@ -32,8 +32,7 @@ const updatedChoosePicture = (p1, p2, p3, src) => {
     $(p1).attr("src", "./assets/imgs/players/" + src);
     $(p2).addClass('make-border');
     $(p3).removeClass('make-border');
-    let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
-    audio.autoplay = true;
+    playBitButton();
 }
 
 //Typing control name for player1
@@ -62,7 +61,7 @@ $('#playerTwoNameInput').keyup(() => {
 });
 
 //Validated players informations
-$('#button-go').on('click', () => {
+$('#button-start').on('click', () => {
     if (playerOneName.toLowerCase().trim() === playerTwoName.toLowerCase().trim()) {
 
         playBitButton();
@@ -82,9 +81,3 @@ $('#button-go').on('click', () => {
         window.location.href = "./home.html";
     }
 });
-
-//Play audio when plar click on help boutton
-const playBitButton = () => {
-    let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
-    audio.autoplay = true;
-}

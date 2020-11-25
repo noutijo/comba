@@ -7,6 +7,12 @@ $('.close').on('click', () => {
     playBitButton();
 });
 
+ //This funtion is called went the user click on let's go button
+ $('#button-go').on('click', () => {
+     playBitButton();
+ });
+
+
 let bgAudio;
 $('.button-audio').on('click', () => {
     playBitButton();
@@ -27,14 +33,15 @@ $('.button-audio').on('click', () => {
 
 
 const playBackgroundSong = () => {
-    bgAudio = new Audio('./assets/audios/Dinner_for_Two.mp3');
+    bgAudio = new Audio('./assets/audios/DinnerForTwo.mp3');
+    bgAudio.currentTime=4000;
     bgAudio.loop = true;
     bgAudio.autoplay = true;
 };
 
 //Play audio when plar click on help boutton
 const playBitButton = () => {
-    let audio = new Audio('./assets/audios/zapsplat_multimedia_click_002_19368.mp3');
+    let audio = new Audio('./assets/audios/clickButton.mp3');
     audio.autoplay = true;
 };
 
