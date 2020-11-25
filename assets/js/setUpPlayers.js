@@ -73,7 +73,6 @@ $('#button-start').on('click', () => {
 
         localStorage.playerOneName = playerOneName;
         localStorage.playerOnePicture = playerOnePicture;
-        localStorage.playerOnePictureDisplay = playerOnePicture;
 
         localStorage.playerTwoName = playerTwoName;
         localStorage.playerTwoPicture = playerTwoPicture;

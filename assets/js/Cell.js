@@ -4,6 +4,10 @@ class Cell {
         this.x = x;
         this.y = y;
     }
+    
+    colorCell() {
+        $('#box_' + this.x + '_' + this.y).css('background-color', '#f1ebff');
+    }
 
     get up() {
         return new Cell(this.x - 1, this.y);
@@ -17,7 +21,12 @@ class Cell {
     get right() {
         return new Cell(this.x, this.y + 1);
     }
-
+    get getX() {
+        return this.x;
+    }
+    get getY() {
+        return this.y;
+    }
     makeObstacle() {
         $('#box_' + this.x + '_' + this.y).addClass('obstacle');
     }
@@ -33,12 +42,7 @@ class Cell {
         $('#box_' + this.x + '_' + this.y).addClass('player' + id);
     }
 
-    getX() {
-        return this.x;
-    }
-    getY() {
-        return this.y;
-    }
+
 
     setX(x) {
         return this.x = x;
