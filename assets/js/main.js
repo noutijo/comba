@@ -1,14 +1,34 @@
- 
  //Grid objetct
  let grid;
- 
+ let Playere;
+
  //Function use to launch to control movement
  $('#root').on('click', (event) => {
      let player = (event.target.id).split('_');
 
      grid.movePlayer(new Cell(parseInt(player[1]), parseInt(player[2])));
  })
- 
+
+ //Function use to launch to control movement bu using keydown
+ window.addEventListener('keydown', function (event) {
+
+     if (event.code ==='ArrowUp') {
+         console.log("up");
+     }
+     if (event.code === 'ArrowRight') {
+         console.log("Right");
+     }
+     if (event.code === 'ArrowDown') {
+         console.log("Down");
+     }
+     if (event.code === 'ArrowLeft') {
+         console.log("Left");
+     }
+
+
+ });
+
+
  //Launch function after page loading
  $(document).ready(function () {
 
@@ -34,5 +54,5 @@
          opacity: 1
      }, 2000);
 
-     playBackgroundSong();
+     // playBackgroundSong();
  });

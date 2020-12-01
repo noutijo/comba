@@ -31,9 +31,10 @@ class Cell {
         $('#box_' + this.x + '_' + this.y).addClass('obstacle');
     }
 
-    makeWeapon(src) {
+    makeWeapon(src, name) {
         $("#box_" + this.x + "_" + this.y).css('background-image', 'url(' + src + ')');
         $('#box_' + this.x + '_' + this.y).addClass('weapon');
+         $('#box_' + this.x + '_' + this.y).addClass(name);
     }
 
     makePlayer(id, src) {

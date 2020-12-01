@@ -129,6 +129,12 @@ class Grid {
         return new Cell(x, y);
     }
 
+    getDefaultWeapon() {
+        return this.weapons.filter((item) => {
+            return item.name === "Orange";
+        });
+    }
+
     isCellFree(cell) {
         return this.occupiedCells.filter((item) => {
             return item.x === cell.x && item.y === cell.y;
@@ -187,7 +193,7 @@ class Grid {
 
             //Add weapon on array's weapons
             this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
-            cell.makeWeapon(weaponsStore[i].src);
+            cell.makeWeapon(weaponsStore[i].src, weaponsStore[i].name);
         }
         console.log(this.weapons);
     }
@@ -197,13 +203,15 @@ class Grid {
         for (let n = 0; n < numberPlayers; n++) {
             let cell = this.findFreeCellForPlayer();
 
-            //Add player infos on array's palyer
-            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src));
+            let weapon = this.getDefaultWeapon()[0];
+
+            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));
             cell.makePlayer(n, playersStore[n].src);
         }
         console.log(this.players);
         this.defineDeplacement("player0");
     }
+
 
     movePlayer(cell) {
         if (this.isNoPossibleDeplacement(cell)) {
