@@ -94,6 +94,9 @@ class Grid {
     }
 
     defineDeplacement(player) {
+
+        this.possibleDisplacement=[];
+        
         let signeCell = $('.' + player).attr('id').split('_');
         let cell = new Cell(parseInt(signeCell[1]), parseInt(signeCell[2]));
 
@@ -168,12 +171,13 @@ class Grid {
         return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
     }
 
-    isNoPossibleDeplacement(cell) {
-        return this.possibleDisplacement.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length === 0;
-    }
+    removeColorDeplacement() {
 
+        for (let n = 0; n < this.possibleDisplacement.length; n++) {
+            this.possibleDisplacement[n].removeColorCell();
+
+        }
+    }
     placeObstacles(numberObstacles = 7) {
 
         for (let i = 0; i < numberObstacles; i++) {
@@ -210,13 +214,6 @@ class Grid {
         }
         console.log(this.players);
         this.defineDeplacement("player0");
-    }
-    
-    movePlayer(cell) {
-        if (this.isNoPossibleDeplacement(cell)) {
-            playDanger();
-        } else
-            alert('good^');
     }
 
 }

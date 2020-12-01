@@ -50,3 +50,9 @@ const playDanger = () => {
     let audio = new Audio('./assets/audios/danger.mp3');
     audio.autoplay = true;
 };
+
+//Play audio success when click on cell that play can move on
+const playSucess = () => {
+    let audio = new Audio('./assets/audios/validated.mp3');
+    audio.autoplay = true;
+};
