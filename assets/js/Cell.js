@@ -27,6 +27,7 @@ class Cell {
     get getY() {
         return this.y;
     }
+    
     makeObstacle() {
         $('#box_' + this.x + '_' + this.y).addClass('obstacle');
     }
