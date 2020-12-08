@@ -227,14 +227,6 @@ class Game {
             return item.x === cell.x && item.y === cell.y;
         }).length === 0;
     }
-    //
-    getNextId = () => {
-        return this.currentPlayer === 0 ? 1 : 0;
-    }
-
-    movePlayerNow = (nextId, cell, cellClose) => {
-
-    }
 
     movePlayer = event => {
 
@@ -331,10 +323,14 @@ class Game {
     }
 
     turnOtherPlayer = () => {
+        
+        let nextId = this.currentPlayer === 0 ? 1 : 0;
+
         this.currentEvent = "";
         this.removeColorDeplacement();
-        this.defineDeplacement("player" + this.getNextId())
-        this.currentPlayer = this.getNextId()
+        this.defineDeplacement("player" + nextId)
+
+        this.currentPlayer = nextId;
     }
 
     changePlayePosition(cell, cellClose) {
