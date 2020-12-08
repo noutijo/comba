@@ -1,40 +1,16 @@
-//Something good here , logicals things start here ! :)
+// //Something good here , logicals things start here ! :)
 
 
-const movePlayerOnClick = cell => {
-    if (isNoPossibleDeplacement(cell)) {
-        playDanger();
-    } else {
-        alert('good^^');
-    }
-}
+// //Function use to launch to control movement
+// $('#root').on('click', (event) => {
+//     let player = (event.target.id).split('_');
 
-
-const movePlayerKeyUp = (currentId, nextId, cell, cellClose) => {
-    if (isNoPossibleDeplacement(cellClose)) {
-        playDanger();
-        turnPlayer(currentId);
-    } else {
-        cell.removeMakePlayer(currentId);
-        grid.players[currentId].position = cellClose;
-        grid.players[currentId].position.makePlayer(currentId, playersStore[currentId].src);
-        grid.removeColorDeplacement();
-        grid.defineDeplacement("player" + nextId);
-        turnPlayer(nextId);
-        playSucess();
-    }
-}
-
-const turnPlayer = nextId => {
-    if (nextId === 1) {
-        turnPlayerTwo();
-    } else {
-        turnPlayerOne();
-    }
-}
-
-const isNoPossibleDeplacement = cell => {
-    return grid.possibleDisplacement.filter((item) => {
-        return item.x === cell.x && item.y === cell.y;
-    }).length === 0;
-}
+//     game.movePlayerOnClick(new Cell(parseInt(player[1]), parseInt(player[2])));
+// })
+//   movePlayerOnClick = cell => {
+//       if (this.isNoPossibleDeplacement(cell)) {
+//           playDanger();
+//       } else {
+//           alert('good^^');
+//       }
+//   }

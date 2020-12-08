@@ -1,4 +1,4 @@
-class Grid {
+class Game {
     constructor(rows, columns) {
         this.rows = rows;
         this.columns = columns;
@@ -8,6 +8,8 @@ class Grid {
         this.players = [];
         this.possibleDisplacement = [];
         this.buildGrid();
+        this.currentPlayer = 0;
+        this.currentEvent = "";
     }
 
     buildGrid() {
@@ -95,8 +97,8 @@ class Grid {
 
     defineDeplacement(player) {
 
-        this.possibleDisplacement=[];
-        
+        this.possibleDisplacement = [];
+
         let signeCell = $('.' + player).attr('id').split('_');
         let cell = new Cell(parseInt(signeCell[1]), parseInt(signeCell[2]));
 
@@ -178,6 +180,7 @@ class Grid {
 
         }
     }
+
     placeObstacles(numberObstacles = 7) {
 
         for (let i = 0; i < numberObstacles; i++) {
@@ -214,6 +217,136 @@ class Grid {
         }
         console.log(this.players);
         this.defineDeplacement("player0");
+    }
+
+    //-------------------------------------------//
+
+
+    isNoPossibleDeplacement = cell => {
+        return this.possibleDisplacement.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
+    }
+    //
+    getNextId = () => {
+        return this.currentPlayer === 0 ? 1 : 0;
+    }
+
+    movePlayerNow = (nextId, cell, cellClose) => {
+
+    }
+
+    movePlayer = event => {
+
+        if (event === 'Enter') {
+
+            if (this.currentEvent === '') {
+                playDanger();
+            }
+
+            if (this.currentEvent === 'ArrowUp') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.up)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+            }
+
+            if (this.currentEvent === 'ArrowRight') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.right)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+            }
+
+            if (this.currentEvent === 'ArrowDown') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.down)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+
+            }
+            if (this.currentEvent === 'ArrowLeft') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.left)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+                }
+            }
+        }
+
+        if (event === 'ArrowUp') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellUp = cell.up;
+
+            this.changePlayePosition(cell, cellUp);
+        }
+
+        if (event === 'ArrowRight') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellRight = cell.right;
+
+            this.changePlayePosition(cell, cellRight);
+        }
+        if (event === 'ArrowDown') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellDown = cell.down;
+
+            this.changePlayePosition(cell, cellDown);
+        }
+
+        if (event === 'ArrowLeft') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellLeft = cell.left;
+
+            this.changePlayePosition(cell, cellLeft);
+
+        }
+
+    }
+
+    turnOtherPlayer = () => {
+        this.currentEvent = "";
+        this.removeColorDeplacement();
+        this.defineDeplacement("player" + this.getNextId())
+        this.currentPlayer = this.getNextId()
+    }
+
+    changePlayePosition(cell, cellClose) {
+
+        if (this.isNoPossibleDeplacement(cellClose)) {
+            playDanger();
+        } else {
+            cell.removeMakePlayer(this.currentPlayer);
+            this.players[this.currentPlayer].position = cellClose;
+            this.players[this.currentPlayer].position.makePlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
+            playSucess();
+        }
     }
 
 }
