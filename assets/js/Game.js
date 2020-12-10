@@ -1,4 +1,4 @@
-class Grid {
+class Game {
     constructor(rows, columns) {
         this.rows = rows;
         this.columns = columns;
@@ -8,6 +8,8 @@ class Grid {
         this.players = [];
         this.possibleDisplacement = [];
         this.buildGrid();
+        this.currentPlayer = 0;
+        this.currentEvent = "";
     }
 
     buildGrid() {
@@ -94,6 +96,9 @@ class Grid {
     }
 
     defineDeplacement(player) {
+
+        this.possibleDisplacement = [];
+
         let signeCell = $('.' + player).attr('id').split('_');
         let cell = new Cell(parseInt(signeCell[1]), parseInt(signeCell[2]));
 
@@ -129,6 +134,12 @@ class Grid {
         return new Cell(x, y);
     }
 
+    getDefaultWeapon() {
+        return this.weapons.filter((item) => {
+            return item.name === "Orange";
+        })[0];
+    }
+
     isCellFree(cell) {
         return this.occupiedCells.filter((item) => {
             return item.x === cell.x && item.y === cell.y;
@@ -162,10 +173,12 @@ class Grid {
         return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
     }
 
-    isNoPossibleDeplacement(cell) {
-        return this.possibleDisplacement.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length === 0;
+    removeColorDeplacement() {
+
+        for (let n = 0; n < this.possibleDisplacement.length; n++) {
+            this.possibleDisplacement[n].removeColorCell();
+
+        }
     }
 
     placeObstacles(numberObstacles = 7) {
@@ -187,7 +200,7 @@ class Grid {
 
             //Add weapon on array's weapons
             this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
-            cell.makeWeapon(weaponsStore[i].src);
+            cell.makeWeapon(weaponsStore[i].src, weaponsStore[i].name);
         }
         console.log(this.weapons);
     }
@@ -197,19 +210,139 @@ class Grid {
         for (let n = 0; n < numberPlayers; n++) {
             let cell = this.findFreeCellForPlayer();
 
-            //Add player infos on array's palyer
-            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src));
+            let weapon = this.getDefaultWeapon();
+
+            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));
             cell.makePlayer(n, playersStore[n].src);
         }
         console.log(this.players);
         this.defineDeplacement("player0");
     }
 
-    movePlayer(cell) {
-        if (this.isNoPossibleDeplacement(cell)) {
+    //-------------------------------------------//
+
+
+    isNoPossibleDeplacement = cell => {
+        return this.possibleDisplacement.filter((item) => {
+            return item.x === cell.x && item.y === cell.y;
+        }).length === 0;
+    }
+
+    movePlayer = event => {
+
+        if (event === 'Enter') {
+
+            if (this.currentEvent === '') {
+                playDanger();
+            }
+
+            if (this.currentEvent === 'ArrowUp') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.up)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+            }
+
+            if (this.currentEvent === 'ArrowRight') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.right)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+            }
+
+            if (this.currentEvent === 'ArrowDown') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.down)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+
+                }
+
+            }
+            if (this.currentEvent === 'ArrowLeft') {
+
+                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.left)) {
+                    playDanger();
+                } else {
+
+                    this.turnOtherPlayer();
+                }
+            }
+        }
+
+        if (event === 'ArrowUp') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellUp = cell.up;
+
+            this.changePlayePosition(cell, cellUp);
+        }
+
+        if (event === 'ArrowRight') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellRight = cell.right;
+
+            this.changePlayePosition(cell, cellRight);
+        }
+        if (event === 'ArrowDown') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellDown = cell.down;
+
+            this.changePlayePosition(cell, cellDown);
+        }
+
+        if (event === 'ArrowLeft') {
+
+            this.currentEvent = event;
+
+            let cell = this.players[this.currentPlayer].position;
+            let cellLeft = cell.left;
+
+            this.changePlayePosition(cell, cellLeft);
+
+        }
+
+    }
+
+    turnOtherPlayer = () => {
+        
+        let nextId = this.currentPlayer === 0 ? 1 : 0;
+
+        this.currentEvent = "";
+        this.removeColorDeplacement();
+        this.defineDeplacement("player" + nextId)
+
+        this.currentPlayer = nextId;
+    }
+
+    changePlayePosition(cell, cellClose) {
+
+        if (this.isNoPossibleDeplacement(cellClose)) {
             playDanger();
-        } else
-            alert('good^');
+        } else {
+            cell.removeMakePlayer(this.currentPlayer);
+            this.players[this.currentPlayer].position = cellClose;
+            this.players[this.currentPlayer].position.makePlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
+            playSucess();
+        }
     }
 
 }

@@ -1,22 +1,22 @@
- 
  //Grid objetct
- let grid;
- 
- //Function use to launch to control movement
- $('#root').on('click', (event) => {
-     let player = (event.target.id).split('_');
+ let game;
 
-     grid.movePlayer(new Cell(parseInt(player[1]), parseInt(player[2])));
- })
- 
+ //Function use to launch to control movement by using keydown
+ window.addEventListener('keydown', function (event) {
+
+    game.movePlayer(event.code);
+
+ });
+
+
  //Launch function after page loading
  $(document).ready(function () {
 
      //Place randomly default informations on the grid
-     grid = new Grid(10, 11);
-     grid.placeObstacles();
-     grid.placeWeapons();
-     grid.placePlayers();
+     game = new Game(10, 11);
+     game.placeObstacles();
+     game.placeWeapons();
+     game.placePlayers();
 
      //Init player one infos
      $('#playerOneName').text(localStorage.playerOneName);
@@ -34,5 +34,5 @@
          opacity: 1
      }, 2000);
 
-     playBackgroundSong();
+     // playBackgroundSong();
  });
