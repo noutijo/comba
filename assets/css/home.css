@@ -9,6 +9,11 @@ body {
     color: #2e254d;
 }
 
+::selection,
+::-moz-selection {
+    background-color: #b5a0fa;
+    color: white;
+}
 
 #root {
 

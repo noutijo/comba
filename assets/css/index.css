@@ -8,6 +8,12 @@ body {
     font-weight: 400;
 }
 
+::selection,
+::-moz-selection {
+    background-color: #b5a0fa;
+    color: white;
+}
+
 .welcome {
     font-size: 30px;
     color: #2e254d;
