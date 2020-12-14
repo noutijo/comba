@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>comba -Game board </title>
 
     <!--Tab icon-->
@@ -95,7 +95,8 @@
                                                                     src="./assets/imgs/logo/logo_single01.png" alt="">
                                                             </div>
                                                             <div class="col-12 text-left mt-3">
-                                                                <strong>Help about Comba Game</strong></div>
+                                                                <strong>Help about Comba Game</strong>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </h5>
@@ -189,6 +190,18 @@
                         <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
                             src="./assets/imgs/weapons/orange.png" alt="">
                     </div>
+
+                    <div class="col-12 mt-5 block-comba">
+                        <div class="row make-shadowB">
+                            <div class="col-12">
+                                <button id="attackPlayerOne" class="btn-danger button-attack mt-3">Attack</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button id="defendPlayerOne" class="btn-primary button-defend mb-3">Defend</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- End player One-->
@@ -225,6 +238,17 @@
                         <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
                             src="./assets/imgs/weapons/orange.png" alt="">
                     </div>
+                    <div class="col-12 mt-5 block-comba">
+                        <div class="row make-shadowB">
+                            <div class="col-12">
+                                <button id="attackPlayerTwo" class="btn-danger button-attack mt-3">Attack</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button id="defendPlayerTwo" class="btn-primary button-defend mb-3">Defend</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- End player Two-->
             </div>
@@ -238,7 +262,8 @@
             </div>
             <div class="col-12 tex-center mt-5">
                 <p>This <strong style="color: #7451eb;">Game</strong> is only available for <strong>PC</strong> and
-                    <strong>Tablettes</strong>.</p>
+                    <strong>Tablettes</strong>.
+                </p>
             </div>
         </div>
     </div>
@@ -256,6 +281,7 @@
 <script src="./assets/js/Game.js"></script>
 <script src="./assets/js/Player.js"></script>
 <script src="./assets/js/Weapon.js"></script>
+<script src="./assets/js/moveManage.js"></script>
 <script src="./assets/js/main.js"></script>
 
 </html>

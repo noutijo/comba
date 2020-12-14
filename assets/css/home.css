@@ -22,13 +22,14 @@ body {
     padding: 0;
     border: none;
     border-radius: 10px;
-    background-image: url('./../imgs/root-bg.jpg');
+    background-image: url('./../imgs/root-bg.jp');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-
 }
+
+
 
 .border-square {
     padding: 5px;
@@ -107,6 +108,44 @@ body {
 .button-help:hover,
 .button-audio:hover {
     box-shadow: 0 10px 25px rgba(34, 60, 47, .09);
+}
+
+/*button Game*/
+.make-shadowB {
+    box-shadow: 0 5px 25px rgba(179, 180, 180, 0.2);
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+    border: 1px solid #f1f1f1;
+}
+.button-defend {
+    background-color: #7451eb;
+    outline: none;
+    border: none;
+    padding: 15px 50px 15px 50px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.25);
+    transition: 2 box-shadow;
+    border-radius: 10px;
+}
+
+.button-defend:hover {
+    background-color: #6039e0;
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
+}
+
+.button-attack {
+    background-color: #df6565;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 50px 15px 50px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.25);
+    transition: 2 box-shadow;
+}
+
+.button-attack:hover {
+    background-color: #d34e4e;
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
 }
 
 #forPC {
