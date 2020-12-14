@@ -8,8 +8,7 @@ body {
     font-weight: 400;
 }
 
-::selection,
-::-moz-selection {
+::selection{
     background-color: #b5a0fa;
     color: white;
 }
