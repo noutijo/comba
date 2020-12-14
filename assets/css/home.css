@@ -9,9 +9,9 @@ body {
     color: #2e254d;
 }
 
-::selection{
+::selection {
     background-color: #b5a0fa;
-    color:#fff;
+    color: #fff;
 }
 
 #root {
@@ -22,7 +22,7 @@ body {
     padding: 0;
     border: none;
     border-radius: 10px;
-    background-image: url('./../imgs/root-bg.jpg');
+    background-image: url('./assets/imgs/root-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
