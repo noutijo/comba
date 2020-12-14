@@ -1,10 +1,10 @@
  //Grid objetct
- let game;
+ let game, grid;
 
  //Function use to launch to control movement by using keydown
  window.addEventListener('keydown', function (event) {
 
-    game.movePlayer(event.code);
+     game.movePlayer(event.code);
 
  });
 
@@ -13,10 +13,11 @@
  $(document).ready(function () {
 
      //Place randomly default informations on the grid
-     game = new Game(10, 11);
-     game.placeObstacles();
-     game.placeWeapons();
-     game.placePlayers();
+     grid = new Grid(10, 11);
+     grid.placeObstacles();
+     grid.placeWeapons();
+     grid.placePlayers();
+     game = new Game(grid);
 
      //Init player one infos
      $('#playerOneName').text(localStorage.playerOneName);
