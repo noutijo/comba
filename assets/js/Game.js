@@ -43,6 +43,20 @@ class Game {
 
     }
 
+    movePlayerByClick(cell) {
+        if (this.isNoPossibleDeplacement(cell)) {
+            playDanger();
+        } else {
+
+                let currentCell = this.grid.players[this.currentPlayer].position;
+                this.changePlayerPosition(currentCell, cell);
+
+            
+
+        }
+    }
+
+
     redefineDeplacement = () => {
         this.grid.removeColorDeplacement();
         this.grid.defineDeplacement("player" + this.currentPlayer)

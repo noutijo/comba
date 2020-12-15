@@ -5,8 +5,13 @@ class Cell {
         this.y = y;
     }
 
+
     colorCell() {
         $('#box_' + this.x + '_' + this.y).css('background-color', '#f7e5c7');
+    }
+
+    hasPlayerClass() {
+        return $('#box_' + this.x + '_' + this.y).hasClass('player');
     }
 
     get up() {
@@ -38,8 +43,8 @@ class Cell {
     }
 
     removeWeapon() {
-         $("#box_" + this.x + "_" + this.y).css('background-image', 'none');
-         $('#box_' + this.x + '_' + this.y).removeClass('obstacle');
+        $("#box_" + this.x + "_" + this.y).css('background-image', 'none');
+        $('#box_' + this.x + '_' + this.y).removeClass('weapon');
     }
 
     addPlayer(id, src) {

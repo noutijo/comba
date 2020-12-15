@@ -3,11 +3,14 @@
 
  //Function use to launch to control movement by using keydown
  window.addEventListener('keydown', function (event) {
-
      game.movePlayer(event.code);
-
  });
 
+ //Function use to launch to control movement
+ $('#root').on('click', (event) => {
+     let player = (event.target.id).split('_');
+     game.movePlayerByClick(new Cell(parseInt(player[1]), parseInt(player[2])));
+ })
 
  //Launch function after page loading
  $(document).ready(function () {
