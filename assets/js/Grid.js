@@ -7,10 +7,10 @@ class Grid {
         this.obstaclesPosition = [];
         this.players = [];
         this.possibleDisplacement = [];
-        this.buildGrid();
+        this.build();
     }
 
-    buildGrid() {
+    build() {
         for (let x = 0; x < this.rows; x++) {
             for (let y = 0; y < this.columns; y++) {
                 $('#root').append('<div id="box_' + x + '_' + y + '"class="box">' + x + ',' + y + ' </div>');
@@ -186,19 +186,19 @@ class Grid {
 
             //Add weapon on array's Obstacles
             this.obstaclesPosition.push(cell);
-            cell.makeObstacle();
+            cell.addObstacle();
         }
         console.log(this.obstaclesPosition);
     }
 
-    placeWeapons(numberWeapons = 4) {
-
+    placeWeapons(numberWeapons = 3) {       
+    
         for (let i = 0; i < numberWeapons; i++) {
             let cell = this.findFreeCell();
 
             //Add weapon on array's weapons
             this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
-            cell.makeWeapon(weaponsStore[i].src, weaponsStore[i].name);
+            cell.addWeapon(weaponsStore[i].src, weaponsStore[i].name);
         }
         console.log(this.weapons);
     }
@@ -208,10 +208,11 @@ class Grid {
         for (let n = 0; n < numberPlayers; n++) {
             let cell = this.findFreeCellForPlayer();
 
-            let weapon = this.getDefaultWeapon();
+            let weapon = new Weapon("Orange", 10, cell, "./assets/imgs/weapons/orange.png");
 
+            this.weapons.push(weapon);
             this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));
-            cell.makePlayer(n, playersStore[n].src);
+            cell.addPlayer(n, playersStore[n].src);
         }
         console.log(this.players);
         this.defineDeplacement("player0");

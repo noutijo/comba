@@ -1,8 +1,8 @@
 class Weapon {
-    constructor(name, damage, positon, imageSrc) {
+    constructor(name, damage, position, imageSrc) {
         this.name = name;
         this.damage = damage;
-        this.positon = positon;
+        this.position = position;
         this.imageSrc = imageSrc;
     }
 }

@@ -29,7 +29,10 @@ body {
     background-position: center;
 }
 
-
+/*Block comba hide by default*/
+.block-comba{
+    
+}
 
 .border-square {
     padding: 5px;

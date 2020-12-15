@@ -16,11 +16,6 @@ let weaponsStore = [{
         src: "./assets/imgs/weapons/carrot.png"
     },
     {
-        name: "Orange",
-        domage: 10,
-        src: "./assets/imgs/weapons/orange.png"
-    },
-    {
         name: "Grape",
         domage: 40,
         src: "./assets/imgs/weapons/grape.png"

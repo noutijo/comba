@@ -1,8 +1,8 @@
 class Game {
     constructor(grid) {
-        this.grid=grid;
+        this.grid = grid;
         this.currentPlayer = 0;
-        this.currentEvent = "";
+        this.controlNumberDeplacement = 0;
     }
 
     isNoPossibleDeplacement = cell => {
@@ -12,101 +12,44 @@ class Game {
     }
 
     movePlayer = event => {
-
-        if (event === 'Enter') {
-
-            if (this.currentEvent === '') {
-                playDanger();
-            }
-
-            if (this.currentEvent === 'ArrowUp') {
-
-                if (!this.isNoPossibleDeplacement(this.grid.players[this.currentPlayer].position.up)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-            }
-
-            if (this.currentEvent === 'ArrowRight') {
-
-                if (!this.isNoPossibleDeplacement(this.grid.players[this.currentPlayer].position.right)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-            }
-
-            if (this.currentEvent === 'ArrowDown') {
-
-                if (!this.isNoPossibleDeplacement(this.grid.players[this.currentPlayer].position.down)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-
-            }
-            if (this.currentEvent === 'ArrowLeft') {
-
-                if (!this.isNoPossibleDeplacement(this.grid.players[this.currentPlayer].position.left)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-                }
-            }
+        if (!['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'].includes(event)) {
+            playDanger();
         }
-
         if (event === 'ArrowUp') {
-
-            this.currentEvent = event;
 
             let cell = this.grid.players[this.currentPlayer].position;
             let cellUp = cell.up;
-
-            this.changePlayePosition(cell, cellUp);
+            this.changePlayerPosition(cell, cellUp);
         }
 
         if (event === 'ArrowRight') {
 
-            this.currentEvent = event;
-
             let cell = this.grid.players[this.currentPlayer].position;
             let cellRight = cell.right;
-
-            this.changePlayePosition(cell, cellRight);
+            this.changePlayerPosition(cell, cellRight);
         }
         if (event === 'ArrowDown') {
 
-            this.currentEvent = event;
-
             let cell = this.grid.players[this.currentPlayer].position;
             let cellDown = cell.down;
-
-            this.changePlayePosition(cell, cellDown);
+            this.changePlayerPosition(cell, cellDown);
         }
 
         if (event === 'ArrowLeft') {
-
-            this.currentEvent = event;
-
             let cell = this.grid.players[this.currentPlayer].position;
             let cellLeft = cell.left;
-
-            this.changePlayePosition(cell, cellLeft);
-
+            this.changePlayerPosition(cell, cellLeft);
         }
 
     }
 
+    redefineDeplacement = () => {
+        this.grid.removeColorDeplacement();
+        this.grid.defineDeplacement("player" + this.currentPlayer)
+    }
+
     turnOtherPlayer = () => {
-        
+
         let nextId = this.currentPlayer === 0 ? 1 : 0;
 
         this.currentEvent = "";
@@ -116,15 +59,69 @@ class Game {
         this.currentPlayer = nextId;
     }
 
-    changePlayePosition(cell, cellClose) {
+    changePlayerPosition(cell, cellClose) {
 
         if (this.isNoPossibleDeplacement(cellClose)) {
             playDanger();
+
         } else {
-            cell.removeMakePlayer(this.currentPlayer);
-            this.grid.players[this.currentPlayer].position = cellClose;
-            this.grid.players[this.currentPlayer].position.makePlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
-            playSucess();
+            this.controlNumberDeplacement++;
+
+            if (this.controlNumberDeplacement < 4 && !(this.controlNumberDeplacement === 3)) {
+
+                this.deplacePlayer(cell, cellClose);
+                this.redefineDeplacement();
+
+            } else if (this.controlNumberDeplacement === 3) {
+
+                this.deplacePlayer(cell, cellClose);
+
+                this.controlNumberDeplacement = 0;
+                this.turnOtherPlayer();
+            }
+        }
+    }
+
+    deplacePlayer(cell, nextCell) {
+
+        let oldWeapon;
+
+        for (let index = 0; index < this.grid.weapons.length; index++) {
+            if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
+
+                oldWeapon = this.grid.players[this.currentPlayer].weapon;
+
+                console.log(oldWeapon);
+                this.displayOldWeapon(oldWeapon.position, oldWeapon.name, oldWeapon.imageSrc);
+
+                oldWeapon = this.grid.weapons[index];
+
+
+                nextCell.removeWeaponName(this.grid.weapons[index].name);
+
+                this.updatePlayerWeapon(this.grid.weapons[index]);
+            }
+        }
+
+        cell.removePlayer(this.currentPlayer);
+        this.grid.players[this.currentPlayer].position = nextCell;
+        this.grid.players[this.currentPlayer].position.addPlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
+
+        playSucess();
+    }
+
+    displayOldWeapon(cell, name, src) {
+
+        cell.addWeapon(src, name);
+    }
+
+    updatePlayerWeapon(weapon) {
+        if (this.currentPlayer === 0) {
+            $('#weaponPlayerOne').attr("src", weapon.imageSrc);
+            console.log(this.grid.players)
+        } else {
+            $("#weaponPlayerTwo").attr("src", weapon.imageSrc);
+            console.log(this.grid.players)
         }
     }
 
