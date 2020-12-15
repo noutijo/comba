@@ -32,15 +32,14 @@ class Cell {
         $('#box_' + this.x + '_' + this.y).addClass('obstacle');
     }
 
-    addWeapon(src, name) {
+    addWeapon(src) {
         $("#box_" + this.x + "_" + this.y).css('background-image', 'url(' + src + ')');
         $('#box_' + this.x + '_' + this.y).addClass('weapon');
-        $('#box_' + this.x + '_' + this.y).addClass(name);
     }
 
-    removeWeaponName(name) {
-        $('#box_' + this.x + '_' + this.y).removeClass(name);
-        $('#box_' + this.x + '_' + this.y).removeClass('weapon');
+    removeWeapon() {
+         $("#box_" + this.x + "_" + this.y).css('background-image', 'none');
+         $('#box_' + this.x + '_' + this.y).removeClass('obstacle');
     }
 
     addPlayer(id, src) {

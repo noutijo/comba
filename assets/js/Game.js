@@ -84,20 +84,22 @@ class Game {
 
     deplacePlayer(cell, nextCell) {
 
-        let oldWeapon;
+        let oldPlayerWeapon;
 
         for (let index = 0; index < this.grid.weapons.length; index++) {
             if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
 
-                oldWeapon = this.grid.players[this.currentPlayer].weapon;
+                oldPlayerWeapon = this.grid.players[this.currentPlayer].weapon;
 
-                console.log(oldWeapon);
-                this.displayOldWeapon(oldWeapon.position, oldWeapon.name, oldWeapon.imageSrc);
+                console.log(oldPlayerWeapon);
+                this.displayOldWeapon(oldPlayerWeapon.position, oldPlayerWeapon.imageSrc);
 
-                oldWeapon = this.grid.weapons[index];
+                oldPlayerWeapon.imageSrc = this.grid.weapons[index].imageSrc;
+                oldPlayerWeapon.position = this.grid.weapons[index].position;
+                oldPlayerWeapon.name = this.grid.weapons[index].name;
+                oldPlayerWeapon.damage = this.grid.weapons[index].damage;
 
-
-                nextCell.removeWeaponName(this.grid.weapons[index].name);
+                //oldPlayerWeapon = this.grid.weapons[index];
 
                 this.updatePlayerWeapon(this.grid.weapons[index]);
             }
@@ -110,9 +112,9 @@ class Game {
         playSucess();
     }
 
-    displayOldWeapon(cell, name, src) {
+    displayOldWeapon(cell, src) {
 
-        cell.addWeapon(src, name);
+        cell.addWeapon(src);
     }
 
     updatePlayerWeapon(weapon) {

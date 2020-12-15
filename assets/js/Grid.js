@@ -198,7 +198,7 @@ class Grid {
 
             //Add weapon on array's weapons
             this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
-            cell.addWeapon(weaponsStore[i].src, weaponsStore[i].name);
+            cell.addWeapon(weaponsStore[i].src);
         }
         console.log(this.weapons);
     }
@@ -210,7 +210,6 @@ class Grid {
 
             let weapon = new Weapon("Orange", 10, cell, "./assets/imgs/weapons/orange.png");
 
-            this.weapons.push(weapon);
             this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));
             cell.addPlayer(n, playersStore[n].src);
         }
