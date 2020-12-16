@@ -27,17 +27,12 @@ let weaponsStore = [{
     },
     {
         name: "Pizza",
-        domage: 5,
+        domage: 45,
         src: "./assets/imgs/weapons/pizza.png"
     },
     {
         name: "Apple",
         domage: 20,
         src: "./assets/imgs/weapons/apple.png"
-    },
-    {
-        name: "Orange",
-        domage: 20,
-        src: "./assets/imgs/weapons/orange.png"
     }
 ]

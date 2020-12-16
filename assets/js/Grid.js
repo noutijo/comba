@@ -208,7 +208,7 @@ class Grid {
         for (let n = 0; n < numberPlayers; n++) {
             let cell = this.findFreeCellForPlayer();
 
-            let weapon = new Weapon(weaponsStore[5].name, weaponsStore[5].domage, cell, weaponsStore[5].src);
+            let weapon = new Weapon("Orange", 10, cell, "./assets/imgs/weapons/orange.png");
             
             this.weapons.push(weapon);
             this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));

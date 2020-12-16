@@ -47,13 +47,13 @@ class Game {
 
     }
 
-    movePlayerByClick(cell) {
-        if (this.isNoPossibleDeplacement(cell)) {
+    movePlayerByClick(nextCell) {
+        if (this.isNoPossibleDeplacement(nextCell)) {
             playDanger();
         } else {
 
             let currentCell = this.currentPlayer.position;
-            this.changePlayerPosition(currentCell, cell);
+            this.changePlayerPosition(currentCell, nextCell);
 
         }
     }
@@ -100,46 +100,45 @@ class Game {
 
     deplacePlayer(cell, nextCell) {
 
-        let oldPlayerWeapon;
 
         for (let index = 0; index < this.grid.weapons.length; index++) {
             if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
 
-                oldPlayerWeapon = this.currentPlayer.weapon;
+                let oldWeapon = this.currentPlayer.weapon;
+                let playerWeaponNow = this.currentPlayer.weapon;
 
-                console.log(oldPlayerWeapon);
-                this.displayOldWeapon(oldPlayerWeapon.position, oldPlayerWeapon.imageSrc);
+                this.displayOldWeapon(this.currentPlayer.position, playerWeaponNow.imageSrc);
 
-                oldPlayerWeapon.imageSrc = this.grid.weapons[index].imageSrc;
-                oldPlayerWeapon.position = this.grid.weapons[index].position;
-                oldPlayerWeapon.name = this.grid.weapons[index].name;
-                oldPlayerWeapon.damage = this.grid.weapons[index].damage;
+                playerWeaponNow.imageSrc = this.grid.weapons[index].imageSrc;
+                playerWeaponNow.name = this.grid.weapons[index].name;
+                playerWeaponNow.damage = this.grid.weapons[index].damage;
 
-                //oldPlayerWeapon = this.grid.weapons[index];
+                this.grid.weapons[index] = oldWeapon;
 
-                this.updatePlayerWeapon(this.grid.weapons[index]);
+                this.updatePlayerWeaponView(this.grid.weapons[index]);
             }
         }
 
         cell.removePlayer(this.currentPlayerIndex);
+
         this.currentPlayer.position = nextCell;
+        //this.currentPlayer.weapon.position = nextCell;
         this.currentPlayer.position.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
+        
+        console.log(this.grid.players)
 
         playSucess();
     }
 
     displayOldWeapon(cell, src) {
-
         cell.addWeapon(src);
     }
 
-    updatePlayerWeapon(weapon) {
+    updatePlayerWeaponView(weapon) {
         if (this.currentPlayerIndex === 0) {
             $('#weaponPlayerOne').attr("src", weapon.imageSrc);
-            console.log(this.grid.players)
         } else {
             $("#weaponPlayerTwo").attr("src", weapon.imageSrc);
-            console.log(this.grid.players)
         }
     }
 
