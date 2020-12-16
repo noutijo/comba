@@ -191,7 +191,7 @@ class Grid {
         console.log(this.obstaclesPosition);
     }
 
-    placeWeapons(numberWeapons = 3) {       
+    placeWeapons(numberWeapons = 5) {       
     
         for (let i = 0; i < numberWeapons; i++) {
             let cell = this.findFreeCell();
@@ -208,7 +208,7 @@ class Grid {
         for (let n = 0; n < numberPlayers; n++) {
             let cell = this.findFreeCellForPlayer();
 
-            let weapon = new Weapon("Orange", 10, cell, "./assets/imgs/weapons/orange.png");
+            let weapon = new Weapon(weaponsStore[5].name, weaponsStore[5].domage, cell, weaponsStore[5].src);
             
             this.weapons.push(weapon);
             this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));

@@ -7,7 +7,7 @@ class Cell {
 
 
     colorCell() {
-        $('#box_' + this.x + '_' + this.y).css('background-color', '#f7e5c7');
+        $('#box_' + this.x + '_' + this.y).css('background-color', 'rgba(179, 180, 180, 0.3)');
     }
 
     hasPlayerClass() {

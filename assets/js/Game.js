@@ -1,7 +1,7 @@
 class Game {
     constructor(grid) {
         this.grid = grid;
-        this.currentPlayer = 0;
+        this.currentPlayerIndex = 0;
         this.controlNumberDeplacement = 0;
     }
 
@@ -11,32 +11,36 @@ class Game {
         }).length === 0;
     }
 
+    get currentPlayer() {
+        return this.grid.players[this.currentPlayerIndex];
+    }
+
     movePlayer = event => {
         if (!['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'].includes(event)) {
             playDanger();
         }
         if (event === 'ArrowUp') {
 
-            let cell = this.grid.players[this.currentPlayer].position;
+            let cell = this.currentPlayer.position;
             let cellUp = cell.up;
             this.changePlayerPosition(cell, cellUp);
         }
 
         if (event === 'ArrowRight') {
 
-            let cell = this.grid.players[this.currentPlayer].position;
+            let cell = this.currentPlayer.position;
             let cellRight = cell.right;
             this.changePlayerPosition(cell, cellRight);
         }
         if (event === 'ArrowDown') {
 
-            let cell = this.grid.players[this.currentPlayer].position;
+            let cell = this.currentPlayer.position;
             let cellDown = cell.down;
             this.changePlayerPosition(cell, cellDown);
         }
 
         if (event === 'ArrowLeft') {
-            let cell = this.grid.players[this.currentPlayer].position;
+            let cell = this.currentPlayer.position;
             let cellLeft = cell.left;
             this.changePlayerPosition(cell, cellLeft);
         }
@@ -48,10 +52,8 @@ class Game {
             playDanger();
         } else {
 
-                let currentCell = this.grid.players[this.currentPlayer].position;
-                this.changePlayerPosition(currentCell, cell);
-
-            
+            let currentCell = this.currentPlayer.position;
+            this.changePlayerPosition(currentCell, cell);
 
         }
     }
@@ -59,18 +61,18 @@ class Game {
 
     redefineDeplacement = () => {
         this.grid.removeColorDeplacement();
-        this.grid.defineDeplacement("player" + this.currentPlayer)
+        this.grid.defineDeplacement("player" + this.currentPlayerIndex)
     }
 
     turnOtherPlayer = () => {
 
-        let nextId = this.currentPlayer === 0 ? 1 : 0;
+        let nextId = this.currentPlayerIndex === 0 ? 1 : 0;
 
         this.currentEvent = "";
         this.grid.removeColorDeplacement();
         this.grid.defineDeplacement("player" + nextId)
 
-        this.currentPlayer = nextId;
+        this.currentPlayerIndex = nextId;
     }
 
     changePlayerPosition(cell, cellClose) {
@@ -103,7 +105,7 @@ class Game {
         for (let index = 0; index < this.grid.weapons.length; index++) {
             if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
 
-                oldPlayerWeapon = this.grid.players[this.currentPlayer].weapon;
+                oldPlayerWeapon = this.currentPlayer.weapon;
 
                 console.log(oldPlayerWeapon);
                 this.displayOldWeapon(oldPlayerWeapon.position, oldPlayerWeapon.imageSrc);
@@ -119,9 +121,9 @@ class Game {
             }
         }
 
-        cell.removePlayer(this.currentPlayer);
-        this.grid.players[this.currentPlayer].position = nextCell;
-        this.grid.players[this.currentPlayer].position.addPlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
+        cell.removePlayer(this.currentPlayerIndex);
+        this.currentPlayer.position = nextCell;
+        this.currentPlayer.position.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
 
         playSucess();
     }
@@ -132,7 +134,7 @@ class Game {
     }
 
     updatePlayerWeapon(weapon) {
-        if (this.currentPlayer === 0) {
+        if (this.currentPlayerIndex === 0) {
             $('#weaponPlayerOne').attr("src", weapon.imageSrc);
             console.log(this.grid.players)
         } else {

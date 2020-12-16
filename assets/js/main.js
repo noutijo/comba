@@ -16,7 +16,7 @@
  $(document).ready(function () {
 
      //Place randomly default informations on the grid
-     grid = new Grid(10, 11);
+     grid = new Grid(10, 12);
      grid.placeObstacles();
      grid.placeWeapons();
      grid.placePlayers();

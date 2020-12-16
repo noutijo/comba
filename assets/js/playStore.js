@@ -21,8 +21,23 @@ let weaponsStore = [{
         src: "./assets/imgs/weapons/grape.png"
     },
     {
+        name: "Hamberger",
+        domage: 50,
+        src: "./assets/imgs/weapons/hamberger.png"
+    },
+    {
+        name: "Pizza",
+        domage: 5,
+        src: "./assets/imgs/weapons/pizza.png"
+    },
+    {
         name: "Apple",
         domage: 20,
         src: "./assets/imgs/weapons/apple.png"
+    },
+    {
+        name: "Orange",
+        domage: 20,
+        src: "./assets/imgs/weapons/orange.png"
     }
 ]
