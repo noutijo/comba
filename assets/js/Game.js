@@ -3,6 +3,11 @@ class Game {
         this.grid = grid;
         this.currentPlayerIndex = 0;
         this.controlNumberDeplacement = 0;
+        this.oldWeapon = '';
+        this.playerWeaponNow = '';
+        this.nextPlayerWeaponIndex = 10;
+        this.weapons = grid.weapons;
+        this.weaponsDispatch=[];
     }
 
     isNoPossibleDeplacement = cell => {
@@ -58,7 +63,6 @@ class Game {
         }
     }
 
-
     redefineDeplacement = () => {
         this.grid.removeColorDeplacement();
         this.grid.defineDeplacement("player" + this.currentPlayerIndex)
@@ -98,39 +102,67 @@ class Game {
         }
     }
 
-    deplacePlayer(cell, nextCell) {
-
-
-        for (let index = 0; index < this.grid.weapons.length; index++) {
-            if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
-
-                let oldWeapon = this.currentPlayer.weapon;
-                let playerWeaponNow = this.currentPlayer.weapon;
-
-                this.displayOldWeapon(this.currentPlayer.position, playerWeaponNow.imageSrc);
-
-                playerWeaponNow.imageSrc = this.grid.weapons[index].imageSrc;
-                playerWeaponNow.name = this.grid.weapons[index].name;
-                playerWeaponNow.damage = this.grid.weapons[index].damage;
-
-                this.grid.weapons[index] = oldWeapon;
-
-                this.updatePlayerWeaponView(this.grid.weapons[index]);
+    getIndexOfNextWeapon(nextCell) {
+        for (let index = 0; index < this.weapons.length; index++) {
+            if (this.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
+                console.log(index);
+                return this.nextPlayerWeaponIndex = index;
             }
         }
-
-        cell.removePlayer(this.currentPlayerIndex);
-
-        this.currentPlayer.position = nextCell;
-        //this.currentPlayer.weapon.position = nextCell;
-        this.currentPlayer.position.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
-        
-        console.log(this.grid.players)
-
-        playSucess();
     }
 
-    displayOldWeapon(cell, src) {
+    deplacePlayer(currentCell, nextCell) {
+
+        if (this.getIndexOfNextWeapon(nextCell) < 10) {
+
+
+            const oldWeapon = this.currentPlayer.weapon;
+
+            this.weaponsDispatch[0] = this.currentPlayer.weapon.name;
+            this.weaponsDispatch[1] = this.currentPlayer.weapon.imageSrc;
+            this.weaponsDispatch[2] = this.currentPlayer.weapon.damage;
+
+            currentCell.removePlayer(this.currentPlayerIndex);
+            this.showOldWeapon(currentCell, this.weaponsDispatch[1], nextCell);
+            this.updatePlayerWeaponView(this.weapons[this.nextPlayerWeaponIndex]);
+
+            this.currentPlayer.weapon.imageSrc = this.weapons[this.nextPlayerWeaponIndex].imageSrc;
+            this.currentPlayer.weapon.name = this.weapons[this.nextPlayerWeaponIndex].name;
+            this.currentPlayer.weapon.damage = this.weapons[this.nextPlayerWeaponIndex].damage;
+
+            this.weapons[this.nextPlayerWeaponIndex].name = this.weaponsDispatch[0];
+            this.weapons[this.nextPlayerWeaponIndex].imageSrc = this.weaponsDispatch[1];
+            this.weapons[this.nextPlayerWeaponIndex].damage = this.weaponsDispatch[2];
+            this.weapons[this.nextPlayerWeaponIndex].position = currentCell;
+            
+            console.log("old weapon", this.currentPlayer.weapon, this.weapons[this.nextPlayerWeaponIndex]);
+            
+
+            this.currentPlayer.position = nextCell;
+            this.currentPlayer.weapon.position = nextCell;
+            nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
+            playSucess();
+        
+            console.log("New weapons array", this.weapons);
+
+            this.nextPlayerWeaponIndex = 10;
+
+        } else{
+
+            currentCell.removePlayer(this.currentPlayerIndex);
+    
+            this.currentPlayer.position = nextCell;
+            this.currentPlayer.weapon.position = nextCell;
+            nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
+            playSucess();
+            
+        }
+
+    }
+
+    showOldWeapon(cell, src, nextCell) {
+        nextCell.removeWeapon();
+        cell.removeWeapon();
         cell.addWeapon(src);
     }
 

@@ -21,6 +21,7 @@ class Grid {
         $('.box').css('width', (100 / this.columns) + '%');
         $('.box').css('height', (100 / this.rows) + '%');
 
+        //Bring radius effect
         $('#box_0_0').css('border-radius', '10px 0px 0px 0px');
         $('#box_0_' + (this.columns - 1)).css('border-radius', '0px 10px 0px 0px');
         $('#box_' + (this.rows - 1) + '_0').css('border-radius', '0px 0px 0px 10px');
