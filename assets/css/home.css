@@ -14,9 +14,14 @@ body {
     color: #fff;
 }
 
-#root {
+#root,
+#rootOne,
+#rootTwo,
+#rootThree,
+#rootFour,
+#rootFive {
     top: 18px;
-    margin: auto;
+    margin: none;
     height: 100%;
     width: 100%;
     padding: 0;
@@ -30,7 +35,9 @@ body {
     background-position: center;
 }
 
-#root::before{
+#root::before,
+#rootTwo::before ,
+#rootFour::before {
     content:' ';
     position: absolute;
     top: 0px;
@@ -44,19 +51,35 @@ body {
     opacity: 0.3;
 }
 
+#rootTwo,
+#rootThree,
+#rootFour,
+#rootFive {
+    display: none;
+}
 /*Block comba hide by default*/
-.block-comba{
-    
+.block-combaOne,
+.block-combaTwo {
+    display: none;
 }
 
 .border-square {
     padding: 5px;
-    border-radius: 10Px;
+    border-radius: 10px;
     background-color: #ebe6ff;
 }
+.border-round {
+    padding: 10px;
+    border-radius: 100px;
+    background-color: rgba(179, 180, 180, 0.5);
+}
 
-.make-border {
-    border: 1px solid #b5a0fa;
+.make-border-violet {
+    border: 3px solid #b5a0fa;
+}
+
+.make-border-vert {
+    border: 3px solid rgba(7, 165, 165, 0.5);
 }
 
 #healhtOne,
@@ -179,11 +202,6 @@ body {
     background-position: center;
     background-size: 45px 50px;
 }
-
-.obstacle {
-    background-image: url('../../assets/imgs/obstacles/wall.png');
-}
-
 
 /*-------------- Medias Queries for Mobile --------------*/
 

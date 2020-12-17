@@ -25,10 +25,12 @@
      //Init player one infos
      $('#playerOneName').text(localStorage.playerOneName);
      $('#playerOnePicture').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png')
+     $('#playerOnePictureBatle').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png')
 
      //Init player two infos
      $('#playerTwoName').text(localStorage.playerTwoName);
      $('#playerTwoPicture').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
+     $('#playerTwoPictureBatle').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
 
      //fadeIn on player's blocks when page is reading
      $('#playerTwo').animate({
@@ -38,5 +40,5 @@
          opacity: 1
      }, 2000);
 
-     // playBackgroundSong();
+     //playBackgroundSong();
  });

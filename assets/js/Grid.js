@@ -33,7 +33,7 @@ class Grid {
 
         while (control < 4) {
             cell = cell.up;
-            if (this.isMovable(cell) && this.isPositiveValue(cell.getX)) {
+            if (this.isMovable(cell) && this.isPositiveValue(cell.x)) {
                 cell.colorCell();
 
                 //Save to possible deplecement 
@@ -50,7 +50,7 @@ class Grid {
 
         while (control < 4) {
             cell = cell.right;
-            if (this.isMovable(cell) && cell.getY < this.columns) {
+            if (this.isMovable(cell) && cell.y < this.columns) {
                 cell.colorCell();
 
                 //Save to possible deplecement 
@@ -66,7 +66,7 @@ class Grid {
 
         while (control < 4) {
             cell = cell.down;
-            if (this.isMovable(cell) && cell.getX < this.rows) {
+            if (this.isMovable(cell) && cell.x < this.rows) {
                 cell.colorCell();
 
                 //Save to possible deplecement 
@@ -82,7 +82,7 @@ class Grid {
 
         while (control < 4) {
             cell = cell.left;
-            if (this.isMovable(cell) && this.isPositiveValue(cell.getY)) {
+            if (this.isMovable(cell) && this.isPositiveValue(cell.y)) {
                 cell.colorCell();
 
                 //Save to possible deplecement 

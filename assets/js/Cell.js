@@ -10,8 +10,8 @@ class Cell {
         $('#box_' + this.x + '_' + this.y).css('background-color', 'rgba(179, 180, 180, 0.3)');
     }
 
-    hasPlayerClass() {
-        return $('#box_' + this.x + '_' + this.y).hasClass('player');
+    get hasPlayerClass() {
+        return $('#box_' + this.x + '_' + this.y).hasClass("player") 
     }
 
     get up() {
@@ -26,14 +26,9 @@ class Cell {
     get right() {
         return new Cell(this.x, this.y + 1);
     }
-    get getX() {
-        return this.x;
-    }
-    get getY() {
-        return this.y;
-    }
 
     addObstacle() {
+        $("#box_" + this.x + "_" + this.y).css('background-image', 'url(./assets/imgs/obstacles/wall.png)');
         $('#box_' + this.x + '_' + this.y).addClass('obstacle');
     }
 
@@ -51,12 +46,14 @@ class Cell {
         $("#box_" + this.x + "_" + this.y).css('background-image', 'url(' + src + ')');
         $('#box_' + this.x + '_' + this.y).addClass('player');
         $('#box_' + this.x + '_' + this.y).addClass('player' + id);
+        $('#box_' + this.x + '_' + this.y).css('border-color', 'rgba(7, 165, 165, 0.5)');
     }
 
     removePlayer(id) {
         $("#box_" + this.x + "_" + this.y).css('background-image', 'none');
         $('#box_' + this.x + '_' + this.y).removeClass('player');
         $('#box_' + this.x + '_' + this.y).removeClass('player' + id);
+        $('#box_' + this.x + '_' + this.y).css('border-color', 'rgba(179, 180, 180, 0.3)');
     }
 
     removeColorCell() {
