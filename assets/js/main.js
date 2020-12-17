@@ -32,6 +32,8 @@
      $('#playerTwoPicture').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
      $('#playerTwoPictureBatle').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
 
+     $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
+
      //fadeIn on player's blocks when page is reading
      $('#playerTwo').animate({
          opacity: 1
@@ -41,4 +43,12 @@
      }, 2000);
 
      //playBackgroundSong();
+ });
+
+ $('#newGame').on('click', () => {
+     window.location.href = "./players.html";
+ });
+
+ $('#replayGame').on('click', () => {
+     window.location.href = "./home.html";
  });
