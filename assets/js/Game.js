@@ -127,7 +127,7 @@ class Game {
                     
                     $('#rootTwo').css('display', 'block');
                     $('#rootThree').css('display', 'block');
-                    
+
                     $('.block-combaOne').css('display', 'block');
                     $('.block-combaTwo').css('display', 'block');
                 }
@@ -169,7 +169,7 @@ class Game {
             this.currentPlayer.position = nextCell;
             this.currentPlayer.weapon.position = nextCell;
             nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
-            playSucess();
+            playPickWeapon();
 
             this.nextPlayerWeaponIndex = 10;
 

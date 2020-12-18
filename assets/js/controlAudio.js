@@ -56,3 +56,9 @@ const playSucess = () => {
     let audio = new Audio('./assets/audios/validated.mp3');
     audio.autoplay = true;
 };
+
+//Play audio pick weapon when click on cell that play can move on
+const playPickWeapon = () => {
+    let audio = new Audio('./assets/audios/pick.mp3');
+    audio.autoplay = true;
+};
