@@ -42,7 +42,7 @@
          opacity: 1
      }, 2000);
 
-     //playBackgroundSong();
+     playBackgroundSong();
  });
 
  $('#newGame').on('click', () => {

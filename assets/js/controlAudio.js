@@ -18,47 +18,41 @@ $('.button-audio').on('click', () => {
     playBitButton();
     if (bgAudio.paused == false) {
         bgAudio.pause();
-
-        $('.bgAudio').removeClass('fa-volume-up');
-        $('.bgAudio').addClass('fa-volume-off');
-        $('.bgAudio').css('color', 'red');
-        
+        $('.bgAudio').removeClass('fa-volume-up').addClass('fa-volume-off').css('color', 'red'); 
     } else {
         bgAudio.play();
-        $('.bgAudio').removeClass('fa-volume-of');
-        $('.bgAudio').addClass('fa-volume-up');
-         $('.bgAudio').css('color', '#2e254d');
+        $('.bgAudio').removeClass('fa-volume-of').addClass('fa-volume-up').css('color', '#2e254d');
     }
 });
 
-
 const playBackgroundSong = () => {
-    bgAudio = new Audio('./assets/audios/DinnerForTwo.mp3');
-    bgAudio.currentTime=4000;
+    bgAudio = new Audio('./assets/audios/HopBackground.mp3');
     bgAudio.loop = true;
     bgAudio.autoplay = true;
 };
 
 //Play audio when plar click on help boutton
 const playBitButton = () => {
-    let audio = new Audio('./assets/audios/clickButton.mp3');
-    audio.autoplay = true;
+    startPlay("clickButton");
 };
 
 //Play audio danger when click on cell that play can't move on
 const playDanger = () => {
-    let audio = new Audio('./assets/audios/danger.mp3');
-    audio.autoplay = true;
+    startPlay("danger");
 };
 
 //Play audio success when click on cell that play can move on
 const playSucess = () => {
-    let audio = new Audio('./assets/audios/validated.mp3');
-    audio.autoplay = true;
+    startPlay("validated");
 };
 
 //Play audio pick weapon when click on cell that play can move on
 const playPickWeapon = () => {
-    let audio = new Audio('./assets/audios/pick.mp3');
-    audio.autoplay = true;
+    startPlay("pick")
 };
+
+const startPlay = (song) => {
+    
+    let audio = new Audio('./assets/audios/'+song+'.mp3');
+    audio.autoplay = true;
+}
