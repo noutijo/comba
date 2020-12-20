@@ -26,7 +26,7 @@ $('.button-audio').on('click', () => {
 });
 
 const playBackgroundSong = () => {
-    bgAudio = new Audio('./assets/audios/HopBackground.mp3');
+    bgAudio = new Audio('./assets/audios/DinnerForTwo.mp3');
     bgAudio.loop = true;
     bgAudio.autoplay = true;
 };
