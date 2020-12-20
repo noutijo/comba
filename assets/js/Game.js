@@ -18,7 +18,7 @@ class Game {
     }
 
     get nextPlayer() {
-        let nextPlayerIndex = this.currentPlayerIndex ===0 ? 1 : 0;
+        let nextPlayerIndex = this.currentPlayerIndex === 0 ? 1 : 0;
         return this.grid.players[nextPlayerIndex];
     }
 
@@ -242,22 +242,22 @@ class Game {
                 this.nextPlayer.health = newHealth;
                 this.displayNewHealth(newHealth);
             }
-
         } else {
 
-            let newHealth = this.nextPlayer.health - ((this.currentPlayer.weapon.damage)/2);
+            let newHealth = this.nextPlayer.health - ((this.currentPlayer.weapon.damage) / 2);
 
             if (newHealth <= 0) {
                 this.displayNewHealth(0);
                 this.displayWinner();
             } else {
                 this.nextPlayer.health = newHealth;
-                this.nextPlayer.attackMode=true;
+                this.nextPlayer.attackMode = true;
                 this.displayNewAttackMode();
                 this.displayNewHealth(newHealth);
             }
-
         }
+
+        playBitButton();
     }
 
     displayNewHealth(health) {
@@ -268,17 +268,17 @@ class Game {
         } else {
             $('#healhtOne').text(health);
             this.displayPlayerBlockCombaBattle();
-            this.currentPlayerIndex =0;
+            this.currentPlayerIndex = 0;
         }
     }
 
-    displayNewAttackMode(){
-         if (this.currentPlayerIndex === 0) {
-             $('#combaModePlayerTwo').text("Attack Mode");
-            } else {
+    displayNewAttackMode() {
+        if (this.currentPlayerIndex === 0) {
+            $('#combaModePlayerTwo').text("Attack Mode");
+        } else {
 
-             $('#combaModePlayerOne').text("Attack Mode");
-         }
+            $('#combaModePlayerOne').text("Attack Mode");
+        }
     }
 
     showWinnerBoard() {
@@ -316,6 +316,7 @@ class Game {
             $('#combaModePlayerOne').text("Defend Mode");
             this.currentPlayer.attackMode = false;
             this.currentPlayerIndex = 1;
+
         } else {
             $('#combaModePlayerTwo').text("Defend Mode");
             this.currentPlayer.attackMode = false;
@@ -323,8 +324,9 @@ class Game {
         }
 
         this.displayPlayerBlockComba();
+        playBitButton();
 
         console.log(this.grid.players);
-        playBitButton();
+
     }
 }

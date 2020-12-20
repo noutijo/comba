@@ -14,6 +14,7 @@ $('.close').on('click', () => {
 
 
 let bgAudio;
+
 $('.button-audio').on('click', () => {
     playBitButton();
     if (bgAudio.paused == false) {
@@ -52,7 +53,6 @@ const playPickWeapon = () => {
 };
 
 const startPlay = (song) => {
-    
     let audio = new Audio('./assets/audios/'+song+'.mp3');
     audio.autoplay = true;
 }

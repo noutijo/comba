@@ -5,7 +5,6 @@ class Cell {
         this.y = y;
     }
 
-
     colorCell() {
         $('#box_' + this.x + '_' + this.y).css('background-color', 'rgba(179, 180, 180, 0.3)');
     }
@@ -59,11 +58,4 @@ class Cell {
     removeColorCell() {
         $('#box_' + this.x + '_' + this.y).css('background-color', 'transparent');
     }
-    setX(x) {
-        return this.x = x;
-    }
-    setY(x) {
-        return this.y = y;
-    }
-
 }
