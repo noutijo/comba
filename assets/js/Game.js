@@ -17,6 +17,11 @@ class Game {
         return this.grid.players[this.currentPlayerIndex];
     }
 
+    get nextPlayer() {
+        let nextPlayerIndex = this.currentPlayerIndex ===0 ? 1 : 0;
+        return this.grid.players[nextPlayerIndex];
+    }
+
     movePlayer = event => {
 
         let cell = this.currentPlayer.position;
@@ -41,7 +46,7 @@ class Game {
 
     }
 
-    hasPlayerClose(nextcell) {
+    hasNotPlayerClose(nextcell) {
 
         return (!nextcell.up.hasPlayerClass && !nextcell.right.hasPlayerClass && !nextcell.down.hasPlayerClass && !nextcell.left.hasPlayerClass)
     }
@@ -94,6 +99,7 @@ class Game {
             playDanger();
 
         } else {
+
             this.controlNumberDeplacement++;
 
             if (this.controlNumberDeplacement < 4 && !(this.controlNumberDeplacement === 3)) {
@@ -101,35 +107,25 @@ class Game {
                 this.deplacePlayer(currentCell, nextCell);
                 this.redefineDeplacement();
 
-                if (this.hasPlayerClose(nextCell)) {
-                } else {
-                    $('#root').css('display','none');
-                    $('#rootOne').css('display','none');
+                if (!this.hasNotPlayerClose(nextCell)) {
+                    this.displayBatleBoard();
+                    this.displayPlayerBlockComba();
 
-                    $('#rootTwo').css('display','block');
-                    $('#rootThree').css('display','block');
+                    console.log(this.grid.players);
 
-                    $('.block-combaOne').css('display', 'block');
-                    $('.block-combaTwo').css('display', 'block');
-                    
                 }
-                
+
             } else if (this.controlNumberDeplacement === 3) {
-                
+
                 this.deplacePlayer(currentCell, nextCell);
                 this.controlNumberDeplacement = 0;
                 this.turnOtherPlayer();
-                
-                if (this.hasPlayerClose(nextCell)) {
-                } else {
-                    $('#root').css('display','none');
-                    $('#rootOne').css('display','none');
-                    
-                    $('#rootTwo').css('display', 'block');
-                    $('#rootThree').css('display', 'block');
 
-                    $('.block-combaOne').css('display', 'block');
-                    $('.block-combaTwo').css('display', 'block');
+                if (!this.hasNotPlayerClose(nextCell)) {
+                    this.displayBatleBoard();
+                    this.displayPlayerBlockComba();
+
+                    console.log(this.grid.players);
                 }
 
             }
@@ -139,7 +135,6 @@ class Game {
     getIndexOfNextWeapon(nextCell) {
         for (let index = 0; index < this.grid.weapons.length; index++) {
             if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
-                console.log(index);
                 return this.nextPlayerWeaponIndex = index;
             }
         }
@@ -154,6 +149,7 @@ class Game {
             this.weaponsDispatch[2] = this.currentPlayer.weapon.damage;
 
             currentCell.removePlayer(this.currentPlayerIndex);
+
             this.showOldWeapon(currentCell, this.weaponsDispatch[1], nextCell);
             this.updatePlayerWeaponView(this.grid.weapons[this.nextPlayerWeaponIndex]);
 
@@ -166,27 +162,24 @@ class Game {
             this.grid.weapons[this.nextPlayerWeaponIndex].damage = this.weaponsDispatch[2];
             this.grid.weapons[this.nextPlayerWeaponIndex].position = currentCell;
 
-            this.currentPlayer.position = nextCell;
-            this.currentPlayer.weapon.position = nextCell;
-            nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
-            playPickWeapon();
 
+            this.changeSomePlayerProperties(nextCell);
+
+            playPickWeapon();
             this.nextPlayerWeaponIndex = 10;
 
-            console.log("New players array", this.grid.weapons);
-
         } else {
-
             currentCell.removePlayer(this.currentPlayerIndex);
 
-            this.currentPlayer.position = nextCell;
-            this.currentPlayer.weapon.position = nextCell;
-            nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
+            this.changeSomePlayerProperties(nextCell);
             playSucess();
-
-            console.log("New players array", this.grid.weapons);
         }
+    }
 
+    changeSomePlayerProperties(nextCell) {
+        this.currentPlayer.position = nextCell;
+        this.currentPlayer.weapon.position = nextCell;
+        nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
     }
 
     showOldWeapon(cell, src, nextCell) {
@@ -201,5 +194,137 @@ class Game {
         } else {
             $("#weaponPlayerTwo").attr("src", weapon.imageSrc);
         }
+    }
+
+    displayPlayerBlockComba() {
+        if (this.currentPlayerIndex === 0) {
+            $('.block-combaOne').css('display', 'block');
+            $('.block-combaTwo').css('display', 'none');
+        } else {
+            $('.block-combaTwo').css('display', 'block');
+            $('.block-combaOne').css('display', 'none');
+        }
+    }
+
+    displayPlayerBlockCombaBattle() {
+        if (this.currentPlayerIndex === 0) {
+            $('.block-combaOne').css('display', 'none');
+            $('.block-combaTwo').css('display', 'block');
+        } else {
+            $('.block-combaTwo').css('display', 'none');
+            $('.block-combaOne').css('display', 'block');
+        }
+    }
+
+    displayBatleBoard() {
+
+        $('#root').css('display', 'none');
+        $('#rootOne').css('display', 'none');
+
+
+        $('#combaModePlayerOne').css('display', 'block');
+        $('#combaModePlayerTwo').css('display', 'block');
+
+        $('#rootTwo').css('display', 'block');
+        $('#rootThree').css('display', 'block');
+    }
+
+    attackOpponent() {
+
+        if (this.nextPlayer.attackMode) {
+
+            let newHealth = this.nextPlayer.health - (this.currentPlayer.weapon.damage);
+
+            if (newHealth <= 0) {
+                this.displayNewHealth(0);
+                this.displayWinner();
+            } else {
+                this.nextPlayer.health = newHealth;
+                this.displayNewHealth(newHealth);
+            }
+
+        } else {
+
+            let newHealth = this.nextPlayer.health - ((this.currentPlayer.weapon.damage)/2);
+
+            if (newHealth <= 0) {
+                this.displayNewHealth(0);
+                this.displayWinner();
+            } else {
+                this.nextPlayer.health = newHealth;
+                this.nextPlayer.attackMode=true;
+                this.displayNewAttackMode();
+                this.displayNewHealth(newHealth);
+            }
+
+        }
+    }
+
+    displayNewHealth(health) {
+        if (this.currentPlayerIndex === 0) {
+            $('#healhtTwo').text(health);
+            this.displayPlayerBlockCombaBattle();
+            this.currentPlayerIndex = 1
+        } else {
+            $('#healhtOne').text(health);
+            this.displayPlayerBlockCombaBattle();
+            this.currentPlayerIndex =0;
+        }
+    }
+
+    displayNewAttackMode(){
+         if (this.currentPlayerIndex === 0) {
+             $('#combaModePlayerTwo').text("Attack Mode");
+            } else {
+
+             $('#combaModePlayerOne').text("Attack Mode");
+         }
+    }
+
+    showWinnerBoard() {
+
+        $('#combaModePlayerOne').css('display', 'none');
+        $('#combaModePlayerTwo').css('display', 'none');
+
+        $('#rootTwo').css('display', 'none');
+        $('#rootThree').css('display', 'none');
+
+        $('.block-combaOne').css('display', 'none');
+        $('.block-combaTwo').css('display', 'none');
+
+        $('#rootFour').css('display', 'block');
+        $('#rootFive').css('display', 'block');
+    }
+
+    displayWinner() {
+        if (this.currentPlayerIndex === 1) {
+            $('#winnerName').text(localStorage.playerOneName);
+            $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png');
+
+            this.showWinnerBoard();
+        } else {
+            $('#winnerName').text(localStorage.playerTwoName);
+            $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png');
+
+            this.showWinnerBoard();
+        }
+    }
+
+    defendOpponent() {
+
+        if (this.currentPlayerIndex === 0) {
+            $('#combaModePlayerOne').text("Defend Mode");
+            this.currentPlayer.attackMode = false;
+            this.currentPlayerIndex = 1;
+        } else {
+            $('#combaModePlayerTwo').text("Defend Mode");
+            this.currentPlayer.attackMode = false;
+            this.currentPlayerIndex = 0;
+        }
+
+        this.displayPlayerBlockComba();
+
+        console.log(this.grid.players);
+        playBitButton();
     }
 }

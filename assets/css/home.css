@@ -54,7 +54,9 @@ body {
 #rootTwo,
 #rootThree,
 #rootFour,
-#rootFive{
+#rootFive,
+#combaModePlayerOne,
+#combaModePlayerTwo {
     display: none;
 }
 /*Block comba hide by default*/

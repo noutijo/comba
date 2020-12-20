@@ -5,5 +5,6 @@ class Player {
         this.position = position;
         this.imageSrc = imageSrc;
         this.weapon = weapon;
+        this.attackMode=true;
     }
 }

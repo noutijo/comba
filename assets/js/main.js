@@ -52,3 +52,24 @@
  $('#replayGame').on('click', () => {
      window.location.href = "./home.html";
  });
+
+
+ //COMBA CONTROL
+
+ //Player one control
+ $('#attackPlayerOne').on('click', () => {
+     game.attackOpponent();
+ });
+
+ $('#defendPlayerOne').on('click', () => {
+     game.defendOpponent();
+ });
+
+ //Player two control
+ $('#attackPlayerTwo').on('click', () => {
+     game.attackOpponent();
+ });
+
+ $('#defendPlayerTwo').on('click', () => {
+     game.defendOpponent();
+ });
