@@ -55,9 +55,9 @@ class Game {
         if (this.isNoPossibleDeplacement(nextCell)) {
             playDanger();
         } else {
+            this.controlNumberDeplacement = 2;
             let currentCell = this.currentPlayer.position;
             this.changePlayerPosition(currentCell, nextCell);
-
         }
     }
 
