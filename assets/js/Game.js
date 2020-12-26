@@ -2,9 +2,9 @@ class Game {
     constructor(grid) {
         this.grid = grid;
         this.currentPlayerIndex = 0;
-        this.controlNumberDeplacement = 0;
-        this.nextPlayerWeaponIndex = 10;
-        this.weaponsDispatch = [];
+        this.controlNumberOfDeplacement = 0;
+        this.indexOfWeaponToTake = 10;
+        this.oldWeaponArray = [];
     }
 
     isNoPossibleDeplacement = cell => {
@@ -22,7 +22,7 @@ class Game {
         return this.grid.players[nextPlayerIndex];
     }
 
-    movePlayer = event => {
+    movePlayerWithKeyboard = event => {
 
         let cell = this.currentPlayer.position;
 
@@ -46,7 +46,7 @@ class Game {
 
     }
 
-    hasNotPlayerClose(nextcell) {
+    hasNotPlayerAround(nextcell) {
 
         return (!nextcell.up.hasPlayerClass && !nextcell.right.hasPlayerClass && !nextcell.down.hasPlayerClass && !nextcell.left.hasPlayerClass)
     }
@@ -55,7 +55,7 @@ class Game {
         if (this.isNoPossibleDeplacement(nextCell)) {
             playDanger();
         } else {
-            this.controlNumberDeplacement = 2;
+            this.controlNumberOfDeplacement = 2;
             let currentCell = this.currentPlayer.position;
             this.changePlayerPosition(currentCell, nextCell);
         }
@@ -100,14 +100,14 @@ class Game {
 
         } else {
 
-            this.controlNumberDeplacement++;
+            this.controlNumberOfDeplacement++;
 
-            if (this.controlNumberDeplacement < 4 && !(this.controlNumberDeplacement === 3)) {
+            if (this.controlNumberOfDeplacement < 4 && !(this.controlNumberOfDeplacement === 3)) {
 
                 this.deplacePlayer(currentCell, nextCell);
                 this.redefineDeplacement();
 
-                if (!this.hasNotPlayerClose(nextCell)) {
+                if (!this.hasNotPlayerAround(nextCell)) {
                     this.displayBatleBoard();
                     this.displayPlayerBlockComba();
 
@@ -115,13 +115,13 @@ class Game {
 
                 }
 
-            } else if (this.controlNumberDeplacement === 3) {
+            } else if (this.controlNumberOfDeplacement === 3) {
 
                 this.deplacePlayer(currentCell, nextCell);
-                this.controlNumberDeplacement = 0;
+                this.controlNumberOfDeplacement = 0;
                 this.turnOtherPlayer();
 
-                if (!this.hasNotPlayerClose(nextCell)) {
+                if (!this.hasNotPlayerAround(nextCell)) {
                     this.displayBatleBoard();
                     this.displayPlayerBlockComba();
 
@@ -135,7 +135,7 @@ class Game {
     getIndexOfNextWeapon(nextCell) {
         for (let index = 0; index < this.grid.weapons.length; index++) {
             if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
-                return this.nextPlayerWeaponIndex = index;
+                return this.indexOfWeaponToTake = index;
             }
         }
     }
@@ -144,29 +144,32 @@ class Game {
 
         if (this.getIndexOfNextWeapon(nextCell) < 10) {
 
-            this.weaponsDispatch[0] = this.currentPlayer.weapon.name;
-            this.weaponsDispatch[1] = this.currentPlayer.weapon.imageSrc;
-            this.weaponsDispatch[2] = this.currentPlayer.weapon.damage;
+            //Stock cuurent weapon of player
+            this.oldWeaponArray[0] = this.currentPlayer.weapon.name;
+            this.oldWeaponArray[1] = this.currentPlayer.weapon.imageSrc;
+            this.oldWeaponArray[2] = this.currentPlayer.weapon.damage;
 
             currentCell.removePlayer(this.currentPlayerIndex);
 
-            this.showOldWeapon(currentCell, this.weaponsDispatch[1], nextCell);
-            this.updatePlayerWeaponView(this.grid.weapons[this.nextPlayerWeaponIndex]);
+            this.placeOldWeaponOnCell(currentCell, this.oldWeaponArray[1], nextCell);
+            this.showNewPlayerWeapon(this.grid.weapons[this.indexOfWeaponToTake]);
 
-            this.currentPlayer.weapon.imageSrc = this.grid.weapons[this.nextPlayerWeaponIndex].imageSrc;
-            this.currentPlayer.weapon.name = this.grid.weapons[this.nextPlayerWeaponIndex].name;
-            this.currentPlayer.weapon.damage = this.grid.weapons[this.nextPlayerWeaponIndex].damage;
+            //Update player's weapon
+            this.currentPlayer.weapon.imageSrc = this.grid.weapons[this.indexOfWeaponToTake].imageSrc;
+            this.currentPlayer.weapon.name = this.grid.weapons[this.indexOfWeaponToTake].name;
+            this.currentPlayer.weapon.damage = this.grid.weapons[this.indexOfWeaponToTake].damage;
 
-            this.grid.weapons[this.nextPlayerWeaponIndex].name = this.weaponsDispatch[0];
-            this.grid.weapons[this.nextPlayerWeaponIndex].imageSrc = this.weaponsDispatch[1];
-            this.grid.weapons[this.nextPlayerWeaponIndex].damage = this.weaponsDispatch[2];
-            this.grid.weapons[this.nextPlayerWeaponIndex].position = currentCell;
+            //Update the weapon in the weopons table by the new weapon left by the player
+            this.grid.weapons[this.indexOfWeaponToTake].name = this.oldWeaponArray[0];
+            this.grid.weapons[this.indexOfWeaponToTake].imageSrc = this.oldWeaponArray[1];
+            this.grid.weapons[this.indexOfWeaponToTake].damage = this.oldWeaponArray[2];
+            this.grid.weapons[this.indexOfWeaponToTake].position = currentCell;
 
 
             this.changeSomePlayerProperties(nextCell);
 
             playPickWeapon();
-            this.nextPlayerWeaponIndex = 10;
+            this.indexOfWeaponToTake = 10;
 
         } else {
             currentCell.removePlayer(this.currentPlayerIndex);
@@ -182,13 +185,13 @@ class Game {
         nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
     }
 
-    showOldWeapon(cell, src, nextCell) {
+    placeOldWeaponOnCell(cell, src, nextCell) {
         nextCell.removeWeapon();
         cell.removeWeapon();
         cell.addWeapon(src);
     }
 
-    updatePlayerWeaponView(weapon) {
+    showNewPlayerWeapon(weapon) {
         if (this.currentPlayerIndex === 0) {
             $('#weaponPlayerOne').attr("src", weapon.imageSrc);
         } else {
@@ -236,31 +239,31 @@ class Game {
             let newHealth = this.nextPlayer.health - (this.currentPlayer.weapon.damage);
 
             if (newHealth <= 0) {
-                this.displayNewHealth(0);
-                this.displayWinner();
+                this.showNewHealth(0);
+                this.showWinner();
             } else {
                 this.nextPlayer.health = newHealth;
-                this.displayNewHealth(newHealth);
+                this.showNewHealth(newHealth);
             }
         } else {
 
             let newHealth = this.nextPlayer.health - ((this.currentPlayer.weapon.damage) / 2);
 
             if (newHealth <= 0) {
-                this.displayNewHealth(0);
-                this.displayWinner();
+                this.showNewHealth(0);
+                this.showWinner();
             } else {
                 this.nextPlayer.health = newHealth;
                 this.nextPlayer.attackMode = true;
-                this.displayNewAttackMode();
-                this.displayNewHealth(newHealth);
+                this.displayPlayerAttackBlock();
+                this.showNewHealth(newHealth);
             }
         }
 
         playBitButton();
     }
 
-    displayNewHealth(health) {
+    showNewHealth(health) {
         if (this.currentPlayerIndex === 0) {
             $('#healhtTwo').text(health);
             this.displayPlayerBlockCombaBattle();
@@ -272,7 +275,7 @@ class Game {
         }
     }
 
-    displayNewAttackMode() {
+    displayPlayerAttackBlock() {
         if (this.currentPlayerIndex === 0) {
             $('#combaModePlayerTwo').text("Attack Mode");
         } else {
@@ -296,7 +299,7 @@ class Game {
         $('#rootFive').css('display', 'block');
     }
 
-    displayWinner() {
+    showWinner() {
         if (this.currentPlayerIndex === 1) {
             $('#winnerName').text(localStorage.playerOneName);
             $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png');

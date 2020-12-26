@@ -3,7 +3,7 @@
 
  //Function use to launch to control movement by using keydown
  window.addEventListener('keydown', function (event) {
-     game.movePlayer(event.code);
+     game.movePlayerWithKeyboard(event.code);
  });
 
  //Function use to launch to control movement
