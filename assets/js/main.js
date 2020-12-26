@@ -1,30 +1,38 @@
  //Grid objetct
- let game;
+ let game, grid;
 
  //Function use to launch to control movement by using keydown
  window.addEventListener('keydown', function (event) {
-
-    game.movePlayer(event.code);
-
+     game.movePlayerWithKeyboard(event.code);
  });
 
+ //Function use to launch to control movement
+ $('#root').on('click', (event) => {
+     let player = (event.target.id).split('_');
+     game.movePlayerByClick(new Cell(parseInt(player[1]), parseInt(player[2])));
+ })
 
  //Launch function after page loading
  $(document).ready(function () {
 
      //Place randomly default informations on the grid
-     game = new Game(10, 11);
-     game.placeObstacles();
-     game.placeWeapons();
-     game.placePlayers();
+     grid = new Grid(10, 12);
+     grid.placeObstacles();
+     grid.placeWeapons();
+     grid.placePlayers();
+     game = new Game(grid);
 
      //Init player one infos
      $('#playerOneName').text(localStorage.playerOneName);
      $('#playerOnePicture').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png')
+     $('#playerOnePictureBatle').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png')
 
      //Init player two infos
      $('#playerTwoName').text(localStorage.playerTwoName);
      $('#playerTwoPicture').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
+     $('#playerTwoPictureBatle').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
+
+     $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png')
 
      //fadeIn on player's blocks when page is reading
      $('#playerTwo').animate({
@@ -34,5 +42,34 @@
          opacity: 1
      }, 2000);
 
-     // playBackgroundSong();
+     playBackgroundSong();
+ });
+
+ $('#newGame').on('click', () => {
+     window.location.href = "./players.html";
+ });
+
+ $('#replayGame').on('click', () => {
+     window.location.href = "./home.html";
+ });
+
+
+ //COMBA CONTROL
+
+ //Player one control
+ $('#attackPlayerOne').on('click', () => {
+     game.attackOpponent();
+ });
+
+ $('#defendPlayerOne').on('click', () => {
+     game.defendOpponent();
+ });
+
+ //Player two control
+ $('#attackPlayerTwo').on('click', () => {
+     game.attackOpponent();
+ });
+
+ $('#defendPlayerTwo').on('click', () => {
+     game.defendOpponent();
  });

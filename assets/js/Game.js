@@ -1,348 +1,335 @@
 class Game {
-    constructor(rows, columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.occupiedCells = [];
-        this.weapons = [];
-        this.obstaclesPosition = [];
-        this.players = [];
-        this.possibleDisplacement = [];
-        this.buildGrid();
-        this.currentPlayer = 0;
-        this.currentEvent = "";
+    constructor(grid) {
+        this.grid = grid;
+        this.currentPlayerIndex = 0;
+        this.controlNumberOfDeplacement = 0;
+        this.indexOfWeaponToTake = 10;
+        this.oldWeaponArray = [];
     }
-
-    buildGrid() {
-        for (let x = 0; x < this.rows; x++) {
-            for (let y = 0; y < this.columns; y++) {
-                $('#root').append('<div id="box_' + x + '_' + y + '"class="box">' + x + ',' + y + ' </div>');
-            }
-        }
-
-        //Initialized boxes sizes
-        $('.box').css('width', (100 / this.columns) + '%');
-        $('.box').css('height', (100 / this.rows) + '%');
-
-        $('#box_0_0').css('border-radius', '10px 0px 0px 0px');
-        $('#box_0_' + (this.columns - 1)).css('border-radius', '0px 10px 0px 0px');
-        $('#box_' + (this.rows - 1) + '_0').css('border-radius', '0px 0px 0px 10px');
-        $('#box_' + (this.rows - 1) + '_' + (this.columns - 1)).css('border-radius', '0px 0px 10px 0px');
-    }
-
-    colorTop(cell) {
-        let control = 1;
-
-        while (control < 4) {
-            cell = cell.up;
-            if (this.isMovable(cell) && this.isPositiveValue(cell.getX)) {
-                cell.colorCell();
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(cell);
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-
-    }
-
-    colorRight(cell) {
-        let control = 1;
-
-        while (control < 4) {
-            cell = cell.right;
-            if (this.isMovable(cell) && cell.getY < this.columns) {
-                cell.colorCell();
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(cell);
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-    }
-
-    colorBottom(cell) {
-        let control = 1;
-
-        while (control < 4) {
-            cell = cell.down;
-            if (this.isMovable(cell) && cell.getX < this.rows) {
-                cell.colorCell();
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(cell);
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-    }
-
-    colorLeft(cell) {
-        let control = 1;
-
-        while (control < 4) {
-            cell = cell.left;
-            if (this.isMovable(cell) && this.isPositiveValue(cell.getY)) {
-                cell.colorCell();
-
-                //Save to possible deplecement 
-                this.possibleDisplacement.push(cell);
-                control++;
-            } else
-                control = 5; //Break loop
-        }
-        console.log(this.possibleDisplacement);
-    }
-
-    defineDeplacement(player) {
-
-        this.possibleDisplacement = [];
-
-        let signeCell = $('.' + player).attr('id').split('_');
-        let cell = new Cell(parseInt(signeCell[1]), parseInt(signeCell[2]));
-
-        this.colorTop(cell);
-        this.colorRight(cell);
-        this.colorBottom(cell);
-        this.colorLeft(cell);
-    }
-
-    findFreeCell() {
-        let cell = this.getRandomCell();
-
-        if (this.isCellFree(cell)) {
-            this.occupiedCells.push(cell);
-            return cell;
-        }
-        return this.findFreeCell();
-    }
-
-    findFreeCellForPlayer() {
-        let cell = this.getRandomCell();
-
-        if (this.isCellFree(cell) && this.isAroundCellFree(cell)) {
-
-            return cell;
-        }
-        return this.findFreeCellForPlayer();
-    }
-
-    getRandomCell() {
-        let x = Math.floor(Math.random() * this.rows);
-        let y = Math.floor(Math.random() * this.columns);
-        return new Cell(x, y);
-    }
-
-    getDefaultWeapon() {
-        return this.weapons.filter((item) => {
-            return item.name === "Orange";
-        })[0];
-    }
-
-    isCellFree(cell) {
-        return this.occupiedCells.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length === 0;
-    }
-
-    isAroundCellFree(cell) {
-        return !this.isCellHasObstacle(cell.up) && !this.isCellHasPlayer(cell.up) &&
-            !this.isCellHasObstacle(cell.right) && !this.isCellHasPlayer(cell.right) &&
-            !this.isCellHasObstacle(cell.down) && !this.isCellHasPlayer(cell.down) &&
-            !this.isCellHasObstacle(cell.left) && !this.isCellHasPlayer(cell.left)
-    }
-
-    isMovable(cell) {
-        return (!this.isCellHasObstacle(cell) && !this.isCellHasPlayer(cell));
-    }
-
-    isCellHasObstacle(cell) {
-        return this.obstaclesPosition.filter((item) => {
-            return item.x === cell.x && item.y === cell.y;
-        }).length > 0;
-    }
-
-    isCellHasPlayer(cell) {
-        return this.players.filter((item) => {
-            return item.position.x === cell.x && item.position.y === cell.y;
-        }).length > 0;
-    }
-
-    isPositiveValue(value) {
-        return (value >= 0 && value < this.columns) || (value >= 0 && value < this.rows)
-    }
-
-    removeColorDeplacement() {
-
-        for (let n = 0; n < this.possibleDisplacement.length; n++) {
-            this.possibleDisplacement[n].removeColorCell();
-
-        }
-    }
-
-    placeObstacles(numberObstacles = 7) {
-
-        for (let i = 0; i < numberObstacles; i++) {
-            let cell = this.findFreeCell();
-
-            //Add weapon on array's Obstacles
-            this.obstaclesPosition.push(cell);
-            cell.makeObstacle();
-        }
-        console.log(this.obstaclesPosition);
-    }
-
-    placeWeapons(numberWeapons = 4) {
-
-        for (let i = 0; i < numberWeapons; i++) {
-            let cell = this.findFreeCell();
-
-            //Add weapon on array's weapons
-            this.weapons.push(new Weapon(weaponsStore[i].name, weaponsStore[i].domage, cell, weaponsStore[i].src));
-            cell.makeWeapon(weaponsStore[i].src, weaponsStore[i].name);
-        }
-        console.log(this.weapons);
-    }
-
-    placePlayers(numberPlayers = 2) {
-
-        for (let n = 0; n < numberPlayers; n++) {
-            let cell = this.findFreeCellForPlayer();
-
-            let weapon = this.getDefaultWeapon();
-
-            this.players.push(new Player(playersStore[n].name, cell, playersStore[n].src, weapon));
-            cell.makePlayer(n, playersStore[n].src);
-        }
-        console.log(this.players);
-        this.defineDeplacement("player0");
-    }
-
-    //-------------------------------------------//
-
 
     isNoPossibleDeplacement = cell => {
-        return this.possibleDisplacement.filter((item) => {
+        return this.grid.possibleDisplacement.filter((item) => {
             return item.x === cell.x && item.y === cell.y;
         }).length === 0;
     }
 
-    movePlayer = event => {
+    get currentPlayer() {
+        return this.grid.players[this.currentPlayerIndex];
+    }
 
-        if (event === 'Enter') {
+    get nextPlayer() {
+        let nextPlayerIndex = this.currentPlayerIndex === 0 ? 1 : 0;
+        return this.grid.players[nextPlayerIndex];
+    }
 
-            if (this.currentEvent === '') {
-                playDanger();
-            }
+    movePlayerWithKeyboard = event => {
 
-            if (this.currentEvent === 'ArrowUp') {
+        let cell = this.currentPlayer.position;
 
-                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.up)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-            }
-
-            if (this.currentEvent === 'ArrowRight') {
-
-                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.right)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-            }
-
-            if (this.currentEvent === 'ArrowDown') {
-
-                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.down)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-
-                }
-
-            }
-            if (this.currentEvent === 'ArrowLeft') {
-
-                if (!this.isNoPossibleDeplacement(this.players[this.currentPlayer].position.left)) {
-                    playDanger();
-                } else {
-
-                    this.turnOtherPlayer();
-                }
-            }
+        if (!['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'].includes(event)) {
+            playDanger();
         }
-
         if (event === 'ArrowUp') {
-
-            this.currentEvent = event;
-
-            let cell = this.players[this.currentPlayer].position;
-            let cellUp = cell.up;
-
-            this.changePlayePosition(cell, cellUp);
+            this.changePlayerPosition(cell, cell.up);
         }
 
         if (event === 'ArrowRight') {
-
-            this.currentEvent = event;
-
-            let cell = this.players[this.currentPlayer].position;
-            let cellRight = cell.right;
-
-            this.changePlayePosition(cell, cellRight);
+            this.changePlayerPosition(cell, cell.right);
         }
         if (event === 'ArrowDown') {
-
-            this.currentEvent = event;
-
-            let cell = this.players[this.currentPlayer].position;
-            let cellDown = cell.down;
-
-            this.changePlayePosition(cell, cellDown);
+            this.changePlayerPosition(cell, cell.down);
         }
 
         if (event === 'ArrowLeft') {
-
-            this.currentEvent = event;
-
-            let cell = this.players[this.currentPlayer].position;
-            let cellLeft = cell.left;
-
-            this.changePlayePosition(cell, cellLeft);
-
+            this.changePlayerPosition(cell, cell.left);
         }
 
     }
 
-    turnOtherPlayer = () => {
-        
-        let nextId = this.currentPlayer === 0 ? 1 : 0;
+    hasNotPlayerAround(nextcell) {
 
-        this.currentEvent = "";
-        this.removeColorDeplacement();
-        this.defineDeplacement("player" + nextId)
-
-        this.currentPlayer = nextId;
+        return (!nextcell.up.hasPlayerClass && !nextcell.right.hasPlayerClass && !nextcell.down.hasPlayerClass && !nextcell.left.hasPlayerClass)
     }
 
-    changePlayePosition(cell, cellClose) {
-
-        if (this.isNoPossibleDeplacement(cellClose)) {
+    movePlayerByClick(nextCell) {
+        if (this.isNoPossibleDeplacement(nextCell)) {
             playDanger();
         } else {
-            cell.removeMakePlayer(this.currentPlayer);
-            this.players[this.currentPlayer].position = cellClose;
-            this.players[this.currentPlayer].position.makePlayer(this.currentPlayer, playersStore[this.currentPlayer].src);
+            this.controlNumberOfDeplacement = 2;
+            let currentCell = this.currentPlayer.position;
+            this.changePlayerPosition(currentCell, nextCell);
+        }
+    }
+
+    redefineDeplacement = () => {
+        this.grid.removeColorDeplacement();
+        this.grid.defineDeplacement("player" + this.currentPlayerIndex)
+    }
+
+    turnOtherPlayer = () => {
+
+        let nextId = this.currentPlayerIndex === 0 ? 1 : 0;
+
+        this.currentEvent = "";
+        this.grid.removeColorDeplacement();
+        this.grid.defineDeplacement("player" + nextId)
+
+        this.currentPlayerIndex = nextId;
+        this.makeBorderTocurrentPlayer(this.currentPlayerIndex);
+    }
+
+    makeBorderTocurrentPlayer(id) {
+        if (id === 0) {
+            $('#playerOnePicture').addClass('make-border-vert');
+            $('#playerOnePicture').removeClass('make-border-violet');
+            $('#playerTwoPicture').addClass('make-border-violet');
+            $('#playerTwoPicture').removeClass('make-border-vert');
+        } else {
+            $('#playerTwoPicture').addClass('make-border-vert');
+            $('#playerTwoPicture').removeClass('make-border-violet');
+            $('#playerOnePicture').addClass('make-border-violet');
+            $('#playerOnePicture').removeClass('make-border-vert');
+
+        }
+    }
+
+    changePlayerPosition(currentCell, nextCell) {
+
+        if (this.isNoPossibleDeplacement(nextCell)) {
+            playDanger();
+
+        } else {
+
+            this.controlNumberOfDeplacement++;
+
+            if (this.controlNumberOfDeplacement < 4 && !(this.controlNumberOfDeplacement === 3)) {
+
+                this.deplacePlayer(currentCell, nextCell);
+                this.redefineDeplacement();
+
+                if (!this.hasNotPlayerAround(nextCell)) {
+                    this.displayBatleBoard();
+                    this.displayPlayerBlockComba();
+
+                    console.log(this.grid.players);
+
+                }
+
+            } else if (this.controlNumberOfDeplacement === 3) {
+
+                this.deplacePlayer(currentCell, nextCell);
+                this.controlNumberOfDeplacement = 0;
+                this.turnOtherPlayer();
+
+                if (!this.hasNotPlayerAround(nextCell)) {
+                    this.displayBatleBoard();
+                    this.displayPlayerBlockComba();
+
+                    console.log(this.grid.players);
+                }
+
+            }
+        }
+    }
+
+    getIndexOfNextWeapon(nextCell) {
+        for (let index = 0; index < this.grid.weapons.length; index++) {
+            if (this.grid.weapons[index].position.x === nextCell.x && this.grid.weapons[index].position.y === nextCell.y) {
+                return this.indexOfWeaponToTake = index;
+            }
+        }
+    }
+
+    deplacePlayer(currentCell, nextCell) {
+
+        if (this.getIndexOfNextWeapon(nextCell) < 10) {
+
+            //Stock cuurent weapon of player
+            this.oldWeaponArray[0] = this.currentPlayer.weapon.name;
+            this.oldWeaponArray[1] = this.currentPlayer.weapon.imageSrc;
+            this.oldWeaponArray[2] = this.currentPlayer.weapon.damage;
+
+            currentCell.removePlayer(this.currentPlayerIndex);
+
+            this.placeOldWeaponOnCell(currentCell, this.oldWeaponArray[1], nextCell);
+            this.showNewPlayerWeapon(this.grid.weapons[this.indexOfWeaponToTake]);
+
+            //Update player's weapon
+            this.currentPlayer.weapon.imageSrc = this.grid.weapons[this.indexOfWeaponToTake].imageSrc;
+            this.currentPlayer.weapon.name = this.grid.weapons[this.indexOfWeaponToTake].name;
+            this.currentPlayer.weapon.damage = this.grid.weapons[this.indexOfWeaponToTake].damage;
+
+            //Update the weapon in the weopons table by the new weapon left by the player
+            this.grid.weapons[this.indexOfWeaponToTake].name = this.oldWeaponArray[0];
+            this.grid.weapons[this.indexOfWeaponToTake].imageSrc = this.oldWeaponArray[1];
+            this.grid.weapons[this.indexOfWeaponToTake].damage = this.oldWeaponArray[2];
+            this.grid.weapons[this.indexOfWeaponToTake].position = currentCell;
+
+
+            this.changeSomePlayerProperties(nextCell);
+
+            playPickWeapon();
+            this.indexOfWeaponToTake = 10;
+
+        } else {
+            currentCell.removePlayer(this.currentPlayerIndex);
+
+            this.changeSomePlayerProperties(nextCell);
             playSucess();
         }
     }
 
+    changeSomePlayerProperties(nextCell) {
+        this.currentPlayer.position = nextCell;
+        this.currentPlayer.weapon.position = nextCell;
+        nextCell.addPlayer(this.currentPlayerIndex, playersStore[this.currentPlayerIndex].src);
+    }
+
+    placeOldWeaponOnCell(cell, src, nextCell) {
+        nextCell.removeWeapon();
+        cell.removeWeapon();
+        cell.addWeapon(src);
+    }
+
+    showNewPlayerWeapon(weapon) {
+        if (this.currentPlayerIndex === 0) {
+            $('#weaponPlayerOne').attr("src", weapon.imageSrc);
+        } else {
+            $("#weaponPlayerTwo").attr("src", weapon.imageSrc);
+        }
+    }
+
+    displayPlayerBlockComba() {
+        if (this.currentPlayerIndex === 0) {
+            $('.block-combaOne').css('display', 'block');
+            $('.block-combaTwo').css('display', 'none');
+        } else {
+            $('.block-combaTwo').css('display', 'block');
+            $('.block-combaOne').css('display', 'none');
+        }
+    }
+
+    displayPlayerBlockCombaBattle() {
+        if (this.currentPlayerIndex === 0) {
+            $('.block-combaOne').css('display', 'none');
+            $('.block-combaTwo').css('display', 'block');
+        } else {
+            $('.block-combaTwo').css('display', 'none');
+            $('.block-combaOne').css('display', 'block');
+        }
+    }
+
+    displayBatleBoard() {
+
+        $('#root').css('display', 'none');
+        $('#rootOne').css('display', 'none');
+
+
+        $('#combaModePlayerOne').css('display', 'block');
+        $('#combaModePlayerTwo').css('display', 'block');
+
+        $('#rootTwo').css('display', 'block');
+        $('#rootThree').css('display', 'block');
+    }
+
+    attackOpponent() {
+
+        if (this.nextPlayer.attackMode) {
+
+            let newHealth = this.nextPlayer.health - (this.currentPlayer.weapon.damage);
+
+            if (newHealth <= 0) {
+                this.showNewHealth(0);
+                this.showWinner();
+            } else {
+                this.nextPlayer.health = newHealth;
+                this.showNewHealth(newHealth);
+            }
+        } else {
+
+            let newHealth = this.nextPlayer.health - ((this.currentPlayer.weapon.damage) / 2);
+
+            if (newHealth <= 0) {
+                this.showNewHealth(0);
+                this.showWinner();
+            } else {
+                this.nextPlayer.health = newHealth;
+                this.nextPlayer.attackMode = true;
+                this.displayPlayerAttackBlock();
+                this.showNewHealth(newHealth);
+            }
+        }
+
+        playBitButton();
+    }
+
+    showNewHealth(health) {
+        if (this.currentPlayerIndex === 0) {
+            $('#healhtTwo').text(health);
+            this.displayPlayerBlockCombaBattle();
+            this.currentPlayerIndex = 1
+        } else {
+            $('#healhtOne').text(health);
+            this.displayPlayerBlockCombaBattle();
+            this.currentPlayerIndex = 0;
+        }
+    }
+
+    displayPlayerAttackBlock() {
+        if (this.currentPlayerIndex === 0) {
+            $('#combaModePlayerTwo').text("Attack Mode");
+        } else {
+
+            $('#combaModePlayerOne').text("Attack Mode");
+        }
+    }
+
+    showWinnerBoard() {
+
+        $('#combaModePlayerOne').css('display', 'none');
+        $('#combaModePlayerTwo').css('display', 'none');
+
+        $('#rootTwo').css('display', 'none');
+        $('#rootThree').css('display', 'none');
+
+        $('.block-combaOne').css('display', 'none');
+        $('.block-combaTwo').css('display', 'none');
+
+        $('#rootFour').css('display', 'block');
+        $('#rootFive').css('display', 'block');
+    }
+
+    showWinner() {
+        if (this.currentPlayerIndex === 1) {
+            $('#winnerName').text(localStorage.playerOneName);
+            $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerOnePicture + '.png');
+
+            this.showWinnerBoard();
+        } else {
+            $('#winnerName').text(localStorage.playerTwoName);
+            $('#PictureWinner').attr('src', './assets/imgs/players/' + localStorage.playerTwoPicture + '.png');
+
+            this.showWinnerBoard();
+        }
+    }
+
+    defendOpponent() {
+
+        if (this.currentPlayerIndex === 0) {
+            $('#combaModePlayerOne').text("Defend Mode");
+            this.currentPlayer.attackMode = false;
+            this.currentPlayerIndex = 1;
+
+        } else {
+            $('#combaModePlayerTwo').text("Defend Mode");
+            this.currentPlayer.attackMode = false;
+            this.currentPlayerIndex = 0;
+        }
+
+        this.displayPlayerBlockComba();
+        playBitButton();
+
+        console.log(this.grid.players);
+
+    }
 }

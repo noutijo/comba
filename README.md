@@ -1,6 +1,6 @@
 # **comba** [![Build Status](https://travis-ci.org/facebook/flipper.svg?branch=master)](https://travis-ci.org/facebook/flipper)
 
-`comba` is an online game written JavaScript in which 2 players play each turn to compete. 
+`comba` is an online game written JavaScript in which 2 players play each turn to complete. 
 
 # Illustration
 

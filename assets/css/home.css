@@ -1,33 +1,87 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
 * {
     font-family: 'Poiret One', cursive;
     font-weight: 600;
     color: #2e254d;
 }
 
-body {
-    width: 100%;
-    height: 100%;
+::selection {
+    background-color: #b5a0fa;
+    color: #fff;
 }
 
-#root {
-
+#root,
+#rootOne,
+#rootTwo,
+#rootThree,
+#rootFour,
+#rootFive {
     top: 18px;
-    margin: auto;
+    margin: none;
     height: 100%;
     width: 100%;
     padding: 0;
+    position: relative;
     border: none;
+    border-radius: 10px;
+    background-image: url('./../imgs/root-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 
+#root::before,
+#rootTwo::before ,
+#rootFour::before {
+    content:' ';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    height: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: black;
+    opacity: 0.3;
+}
+
+#rootTwo,
+#rootThree,
+#rootFour,
+#rootFive,
+#combaModePlayerOne,
+#combaModePlayerTwo {
+    display: none;
+}
+/*Block comba hide by default*/
+.block-combaOne,
+.block-combaTwo {
+    display: none;
 }
 
 .border-square {
     padding: 5px;
-    border-radius: 10Px;
+    border-radius: 10px;
     background-color: #ebe6ff;
 }
+.border-round {
+    padding: 10px;
+    border-radius: 100px;
+    background-color: rgba(179, 180, 180, 0.5);
+}
 
-.make-border {
-    border: 1px solid #b5a0fa;
+.make-border-violet {
+    border: 3px solid #b5a0fa;
+}
+
+.make-border-vert {
+    border: 3px solid rgba(7, 165, 165, 0.5);
 }
 
 #healhtOne,
@@ -50,10 +104,10 @@ body {
 }
 
 .box {
-
     padding: 1.5% 1% 3.5% 3%;
+    position: relative;
     text-align: center;
-    border: 0.1px solid #dddddd;
+    border: 0.1px solid rgba(255, 255, 255, 0.15);
     display: inline-block;
     box-shadow: 0 5px 25px rgba(158, 158, 158, 0.15);
     cursor: pointer;
@@ -100,6 +154,44 @@ body {
     box-shadow: 0 10px 25px rgba(34, 60, 47, .09);
 }
 
+/*button Game*/
+.make-shadowB {
+    box-shadow: 0 5px 25px rgba(179, 180, 180, 0.2);
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+    border: 1px solid #f1f1f1;
+}
+.button-defend {
+    background-color: #7451eb;
+    outline: none;
+    border: none;
+    padding: 15px 50px 15px 50px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.25);
+    transition: 2 box-shadow;
+    border-radius: 10px;
+}
+
+.button-defend:hover {
+    background-color: #6039e0;
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
+}
+
+.button-attack {
+    background-color: #df6565;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 50px 15px 50px;
+    box-shadow: 0 5px 25px rgba(122, 124, 123, 0.25);
+    transition: 2 box-shadow;
+}
+
+.button-attack:hover {
+    background-color: #d34e4e;
+    box-shadow: 0 5px 25px rgba(255, 255, 255, 0.2);
+}
+
 #forPC {
     display: none;
 }
@@ -112,11 +204,6 @@ body {
     background-position: center;
     background-size: 45px 50px;
 }
-
-.obstacle {
-    background-image: url('../../assets/imgs/obstacles/wall.png');
-}
-
 
 /*-------------- Medias Queries for Mobile --------------*/
 

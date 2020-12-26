@@ -4,10 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>comba -Game board </title>
 
+    <!-- Place this data between the <head> tags of your website -->
+    <title>Comba | Game board</title>
+    <meta name="description"
+        content="comba is an online game written JavaScript in which 2 players play each turn to compete." />
+    
     <!--Tab icon-->
     <link rel="icon" href="./assets/imgs/logo/logo_single02.png">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Comba | Game board">
+    <meta name="twitter:description"
+        content="comba is an online game written JavaScript in which 2 players play each turn to compete.">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="./assets/imgs/comba_04.png">
+    
+    
+    <!-- Open Graph data for Facebook-->
+    <meta property="og:title"
+        content="comba is an online game written JavaScript in which 2 players play each turn to compete." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://comba.netlify.app/" />
+    <meta property="og:image" content="./assets/imgs/comba_04.png" />
+    <meta property="og:description"
+        content="comba is an online game written JavaScript in which 2 players play each turn to compete." />
+    <meta property="og:site_name" content="Comba | Game board" />
+    <meta property="fb:admins" content="Facebook numeric ID" />
 
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,40 +59,59 @@
                     </div>
                     <div class="col-6 damageInfos">
                         <div class="row make-shadow info-damage">
-                            <div class="col-3 text-left">
+
+                            <div class="col-2 text-left">
                                 <div class="row">
                                     <div class="col-12 text-center">Orange</div>
                                     <div class="col-12 text-center"><img width="30" height="20"
                                             src="./assets/imgs/weapons/orange.png" class="img-fluid mt-2 border-square"
-                                            src="weapon orange" alt=""></div>
-                                    <div class="col-12 text-center">Damage: 10</div>
+                                            alt=""></div>
+                                    <div class="col-12 text-center">Harm: 10</div>
                                 </div>
                             </div>
-                            <div class="col-3 text-left">
+                            <div class="col-2 text-left">
                                 <div class="row">
                                     <div class="col-12 text-center">Apple</div>
                                     <div class="col-12 text-center"><img width="30" height="20"
                                             src="./assets/imgs/weapons/apple.png" class="img-fluid mt-2 border-square"
-                                            src="weapon orange" alt=""></div>
-                                    <div class="col-12 text-center">Damage: 20</div>
+                                            alt=""></div>
+                                    <div class="col-12 text-center">Harm: 20</div>
                                 </div>
                             </div>
-                            <div class="col-3 text-left">
+                            <div class="col-2 text-left">
                                 <div class="row">
                                     <div class="col-12 text-center">Carrot</div>
                                     <div class="col-12 text-center"><img width="30" height="20"
                                             src="./assets/imgs/weapons/carrot.png" class="img-fluid mt-2 border-square"
-                                            src="weapon orange" alt=""></div>
-                                    <div class="col-12 text-center">Damage: 35</div>
+                                            alt=""></div>
+                                    <div class="col-12 text-center">Harm: 35</div>
                                 </div>
                             </div>
-                            <div class="col-3 text-left">
+                            <div class="col-2 text-left">
                                 <div class="row">
                                     <div class="col-12 text-center">Grape</div>
                                     <div class="col-12 text-center"><img width="30" height="20"
                                             src="./assets/imgs/weapons/grape.png" class="img-fluid mt-2 border-square"
-                                            src="weapon orange" alt=""></div>
-                                    <div class="col-12 text-center">Damage: 40</div>
+                                            alt=""></div>
+                                    <div class="col-12 text-center">Harm: 40</div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-left">
+                                <div class="row">
+                                    <div class="col-12 text-center">Pizza</div>
+                                    <div class="col-12 text-center"><img width="30" height="20"
+                                            src="./assets/imgs/weapons/pizza.png" class="img-fluid mt-2 border-square"
+                                            alt=""></div>
+                                    <div class="col-12 text-center">Harm: 45</div>
+                                </div>
+                            </div>
+                            <div class="col-2 text-left">
+                                <div class="row">
+                                    <div class="col-12 text-center">Hamberger</div>
+                                    <div class="col-12 text-center"><img width="30" height="20"
+                                            src="./assets/imgs/weapons/hamberger.png"
+                                            class="img-fluid mt-2 border-square" alt=""></div>
+                                    <div class="col-12 text-center">Harm: 50</div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +139,8 @@
                                                                     src="./assets/imgs/logo/logo_single01.png" alt="">
                                                             </div>
                                                             <div class="col-12 text-left mt-3">
-                                                                <strong>Help about Comba Game</strong></div>
+                                                                <strong>Help about Comba Game</strong>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </h5>
@@ -161,15 +206,14 @@
             </div>
 
             <!-- player One-->
-            <div style="border-radius: 0px 10px 0px 0px;" class="col-3 col-md-3 mt-3 text-center make-shadow"
-                id="playerOne">
+            <div style="border-radius: 0px 10px 0px 0px;" class="col-3 col-md-3 mt-3 text-center" id="playerOne">
 
                 <div class="row">
                     <div class="col-12">
                         <div id="playerOneName" class="mt-5"></div>
                     </div>
                     <div class="col-12">
-                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
+                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border-vert"
                             id="playerOnePicture" src="" alt="">
                     </div>
                     <div class="col-12">
@@ -185,27 +229,122 @@
                     <div class="col-12">
                         <p>Weapon</p>
                     </div>
-                    <div id="weaponPlayerOne" class="col-12">
-                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
+                    <div class="col-12">
+                        <img id="weaponPlayerOne" width="50" height="40"
+                            class="img-fluid mt-2 border-square make-border-violet"
                             src="./assets/imgs/weapons/orange.png" alt="">
                     </div>
+                    <div class="col-12 mt-3">
+                       <p id="combaModePlayerOne" >Attack mode</p>
+                    </div>
+
+                    <div class="col-12 mt-5 block-combaOne">
+                        <div class="row make-shadowB">
+                            <div class="col-12">
+                                <button id="attackPlayerOne" class="btn-danger button-attack mt-3">Attack</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button id="defendPlayerOne" class="btn-primary button-defend mb-3">Defend</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- End player One-->
-            <div class="col-6 col-md-6 mb-3 text-center" id="root">
+            <div class="col-6 col-md-6 mb-3 text-center">
+                <div class="row">
+                    <div class="col-12" id="root">
+                    </div>
+                    <div class="col-12">
+                        <div id="rootOne" style="color: transparent;">n</div>
+                    </div>
+                    <div class="col-12 mt-3" id="rootTwo">
+                        <div class="row">
+                            <div class="col-12 my-5">
+                                <!--span><img width="80" height="100" src="./assets/imgs/logo/logo_single02.png"
+                                        alt=""></span-->
+                                <span style="font-size: 100px; font-weight: 900; color: #e43e3e;">Battle start</span>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-5 my-5">
+                                        <img width="100" height="80"
+                                            class="img-fluid mt-2 border-round make-border-vert"
+                                            id="playerOnePictureBatle" src="" alt="">
+                                    </div>
+                                    <div class="col-2 my-5">
+                                        <p style="font-size: 100px; font-weight: 900; color: turquoise;">Vs</p>
+                                    </div>
+                                    <div class="col-5 my-5">
+                                        <img width="100" height="80"
+                                            class="img-fluid mt-2 border-round make-border-vert"
+                                            id="playerTwoPictureBatle" src="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="rootThree" style="color: transparent;">n</div>
+                    </div>
+                    <div class="col-12 mt-3" id="rootFour">
+                        <div>
 
+                            <div class="row">
+                                <div class="col-12 my-5">
+                                    <span style="font-size: 50px; font-weight: 900; color: #e43e3e;">The Game is over
+                                        !</span>
+                                </div>
+                                <div class="col-12 my-3">
+                                    <span style="font-size: 30px; font-weight: 900; color: white;">Winner is</span>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12 my-3">
+                                            <span><img width="100" height="80" class="img-fluid mt-2 border-round make-border-vert" id="PictureWinner" src="" alt=""></span>
+                                        </div>
+                                        <div class="col-12 mt-2 mb-3">
+                                            <span id="winnerName" style="font-size: 50px; font-weight: 900; color: turquoise;">Oreol</span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-3 mb-5">
+                                    <div class="row">
+                                        <div class="col-6" style="float: right;">
+                                            <button id="newGame"
+                                                class="btn-danger button-attack mt-3">New Game</button>
+                                        </div>
+                                        <div class="col-6" style="float: left;">
+                                            <button id="replayGame"
+                                                class="btn-primary button-defend mb-3">Replay</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div id="rootFive" style="color: transparent;">n</div>
+                    </div>
+                </div>
             </div>
 
+
             <!-- player Two-->
-            <div style="border-radius: 10px 0px 0px 0px;" class="col-3 col-md-3 mt-3  text-center make-shadow"
-                id="playerTwo">
+            <div style="border-radius: 10px 0px 0px 0px;" class="col-3 col-md-3 mt-3  text-center" id="playerTwo">
 
                 <div class="row">
                     <div class="col-12">
                         <div id="playerTwoName" class="mt-5"></div>
                     </div>
                     <div class="col-12">
-                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
+                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border-violet"
                             id="playerTwoPicture" src="" alt="">
                     </div>
                     <div class="col-12">
@@ -221,10 +360,25 @@
                     <div class="col-12">
                         <p>Weapon</p>
                     </div>
-                    <div id="weaponPlayerTwo" class="col-12">
-                        <img width="50" height="40" class="img-fluid mt-2 border-square make-border"
+                    <div class="col-12">
+                        <img id="weaponPlayerTwo" width="50" height="40"
+                            class="img-fluid mt-2 border-square make-border-violet"
                             src="./assets/imgs/weapons/orange.png" alt="">
                     </div>
+                    <div class="col-12 mt-3">
+                        <p id="combaModePlayerTwo">Attack mode</p>
+                    </div>
+                    <div class="col-12 mt-5 block-combaTwo">
+                        <div class="row make-shadowB" style="float: right;">
+                            <div class="col-12">
+                                <button id="attackPlayerTwo" class="btn-danger button-attack mt-3">Attack</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button id="defendPlayerTwo" class="btn-primary button-defend mb-3">Defend</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- End player Two-->
             </div>
@@ -238,7 +392,8 @@
             </div>
             <div class="col-12 tex-center mt-5">
                 <p>This <strong style="color: #7451eb;">Game</strong> is only available for <strong>PC</strong> and
-                    <strong>Tablettes</strong>.</p>
+                    <strong>Tablettes</strong>.
+                </p>
             </div>
         </div>
     </div>
@@ -252,10 +407,10 @@
 <script src="./assets/js/playStore.js"></script>
 <script src="./assets/js/Cell.js"></script>
 <script src="./assets/js/controlAudio.js"></script>
+<script src="./assets/js/Grid.js"></script>
 <script src="./assets/js/Game.js"></script>
 <script src="./assets/js/Player.js"></script>
 <script src="./assets/js/Weapon.js"></script>
-<script src="./assets/js/moveManage.js"></script>
 <script src="./assets/js/main.js"></script>
 
 </html>
